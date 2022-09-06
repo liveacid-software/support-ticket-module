@@ -1,0 +1,24 @@
+{
+  "name": "mongo-module",
+  "description": "LiveACID MongoDB Connection Module",
+  "version": "1.0.4",
+  "private": true,
+  "scripts": {
+    "test": "node index.js"
+  },
+  "engines": {
+    "node": "16.13.2"
+  },
+  "dependencies": {
+    "connect-mongo": "^4.6.0",
+    "dotenv": "^16.0.1",
+    "express-session": "^1.17.3",
+    "mongoose": "^5.13.14"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC"
+}

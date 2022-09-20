@@ -21,8 +21,7 @@ router.post('/supportticket/submit', checkSession, (req, res) => {
     // sned support ticket to gihub API
     // email support ticket to users email if email exists
 
-	const {
-		_doc: { password, ...userInfo },
-	} = req.user;
+    console.log("REQUEST: ", req.body);
+
 	res.json({ userInfo, success: true });
 });

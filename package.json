@@ -12,7 +12,7 @@
   "dependencies": {
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.1",
-    "express-session": "^1.17.3",
+    "formik": "^2.2.9",
     "mongoose": "^5.13.14"
   },
   "main": "index.js",

@@ -1,4 +1,4 @@
-const mongodb = require('./mongodb');
+const mongodb = require('./mongo/init-mongodb');
 const session = require('./session');
 
 module.exports = {

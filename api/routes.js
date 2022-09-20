@@ -8,7 +8,7 @@
 const Router = require('express');
 const router = Router();
 
-import { SupportTicket } from '../mongo';
+import { SupportTicket } from '../mongo'; // if config mongo use this ELSE import the postgres option
 
 const checkSession =  (req, res, next) => {
     if (!req.isAuthenticated()) {

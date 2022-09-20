@@ -1,7 +1,7 @@
-const mongodb = require('./mongo/init-mongodb');
-const session = require('./session');
+import {SupportTicket} from './react/index';
+const api = require('./api/index');
 
 module.exports = {
-    client: mongodb.client,
-    session: session.session()
+    SupportTicket,
+    api
 };

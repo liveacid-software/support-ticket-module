@@ -1,5 +1,5 @@
-import {SupportTicket} from './react/index';
-const api = require('./api/index');
+import { SupportTicket} from './react';
+import api from './api';
 
 module.exports = {
     SupportTicket,

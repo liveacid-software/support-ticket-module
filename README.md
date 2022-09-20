@@ -23,3 +23,6 @@ Note: This package uses `formik`, `dotenv` and `mongoose` npm packages
 // usage code here
 
 ```
+
+
+// https://www.pluralsight.com/guides/export-reactjs-components-as-node-modules-to-npm

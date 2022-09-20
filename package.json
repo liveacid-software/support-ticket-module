@@ -1,8 +1,9 @@
 {
-  "name": "mongo-module",
-  "description": "LiveACID MongoDB Connection Module",
-  "version": "1.0.4",
-  "private": true,
+  "name": "support-ticket-module",
+  "description": "LiveACID Support Ticket Module",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
   "scripts": {
     "test": "node index.js"
   },

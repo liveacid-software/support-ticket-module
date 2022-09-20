@@ -1,4 +1,3 @@
-import { Col, Content, Row, SmartTable, Box } from 'adminlte-2-react';
 import axios from 'axios';
 import React, { Component } from 'react';
 
@@ -40,13 +39,9 @@ class SupportTicket extends Component {
 		} = this.state;
 
 		return (
-			<Content title='WorkFlow Support Ticket ' browserTitle='WorkFlow Support Ticket'>
-				<Row xs={12}>
-					<Col xs={12}>
-						{ !submitted ? <TicketForm onSubmit={onSubmit} error={error} /> : <p>Submitted Thanks!</p> }
-					</Col>
-				</Row>
-			</Content>
+			<div>
+				{ !submitted ? <TicketForm onSubmit={onSubmit} error={error} /> : <p>Submitted Thanks!</p> }
+			</div>
 		);
 	}
 }

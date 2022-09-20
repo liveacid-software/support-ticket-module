@@ -10,7 +10,6 @@
     "node": "16.13.2"
   },
   "dependencies": {
-    "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.1",
     "formik": "^2.2.9",
     "mongoose": "^5.13.14"

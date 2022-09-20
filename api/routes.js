@@ -1,4 +1,5 @@
-/// Configurations with ENV vars
+// ==== Configurations with ENV vars =====
+// MONGO or POSTGRES
 // Github API info and Project
 // Email on/off and SMTP info
 // Authenticate or not ->  If not authenticated do not send email and no user record ref
@@ -6,6 +7,8 @@
 
 const Router = require('express');
 const router = Router();
+
+import { SupportTicket } from '../mongo';
 
 const checkSession =  (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -15,7 +18,7 @@ const checkSession =  (req, res, next) => {
     }
 };
 
-router.post('/supportticket/submit', checkSession, (req, res) => {
+router.post('/supportticket/submit', checkSession, async (req, res) => {
     const user = req.user; // IF no user return error
     // create mongo support record
     // sned support ticket to gihub API
@@ -23,5 +26,15 @@ router.post('/supportticket/submit', checkSession, (req, res) => {
 
     console.log("REQUEST: ", req.body);
 
+    const ticket = new SupportTicket({
+        submittedBy: user,
+        subject: req.body.subject,
+        body: req.body.body
+    });
+
+    await ticket.save();
+
 	res.json({ userInfo, success: true });
 });
+
+module.exports = router;

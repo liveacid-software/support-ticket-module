@@ -2,7 +2,6 @@ import { Col, Content, Row, SmartTable, Box } from 'adminlte-2-react';
 import axios from 'axios';
 import React, { Component } from 'react';
 
-import ConditionalRender from '../../components/ConditionalRender';
 import TicketForm from './TicketForm';
 
 class SupportTicket extends Component {

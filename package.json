@@ -11,6 +11,9 @@
   },
   "files": [
     "dist",
+    "api",
+    "mongo",
+    "index.js",
     "README.md"
   ],
   "repository": {

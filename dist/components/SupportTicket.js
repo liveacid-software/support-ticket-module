@@ -58,7 +58,7 @@ class SupportTicket extends _react.Component {
           error: true
         });
       } catch (err) {
-        console.log("error: ", error);
+        console.log("error: ", err);
         this.setState({
           error: true
         });
@@ -66,7 +66,7 @@ class SupportTicket extends _react.Component {
     });
 
     this.state = {
-      erro: false,
+      error: false,
       message: null,
       submitted: false
     };
@@ -77,10 +77,10 @@ class SupportTicket extends _react.Component {
   render() {
     const {
       error,
-      success
+      submitted
     } = this.state;
     return /*#__PURE__*/_react.default.createElement("div", null, !submitted ? /*#__PURE__*/_react.default.createElement(_TicketForm.default, {
-      onSubmit: onSubmit,
+      onSubmit: this.onSubmit,
       error: error
     }) : /*#__PURE__*/_react.default.createElement("p", null, "Submitted Thanks!"));
   }

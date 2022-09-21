@@ -1,1 +1,5 @@
-export { default as SupportTicket } from './model';
+const SupportTicket = require('./model');
+
+module.exports = {
+	SupportTicket,
+}

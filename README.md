@@ -1,6 +1,10 @@
 # support-ticket-module
 
-## note: may have to split the model and router out from the react component. 
+## Assumptions
+### This module assumes the following WorkFlow configurations:
+
+- All API calls made from react are prefixed by `/api` to proxy to  the backend
+- There is not already a `/supportticket` endpoint established on the project.
 
 ### Use and Configuration:
 #### To configure this module use the followin ENV Vars in your project .env file

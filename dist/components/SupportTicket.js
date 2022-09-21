@@ -42,7 +42,7 @@ class SupportTicket extends _react.Component {
             userInfo,
             success
           }
-        } = await _axios.default.post('/supportticket/submit', _objectSpread({}, data));
+        } = await _axios.default.post('/api/supportticket/submit', _objectSpread({}, data));
 
         if (success) {
           console.log("Success!");

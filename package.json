@@ -5,10 +5,6 @@
   "version": "0.1.0",
   "private": false,
   "main": "./index.js",
-  "exports": {
-    ".": "./dist/index.js",
-    "./api": "./api/routes.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liveacid-software/support-ticket-module.git"

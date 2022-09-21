@@ -1,7 +1,7 @@
-const api =  require('./api/routes');
-import SupportTicket from './dist/components/SupportTicket';
+// const api =  require('./api/routes');
+const { SupportTicket } = require('./dist');
 
 module.exports = {
-    api,
+//    api,
     SupportTicket
 };

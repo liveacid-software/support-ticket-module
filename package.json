@@ -9,13 +9,6 @@
     ".": "./dist/index.js",
     "./api": "./api/routes.js"
   },
-  "files": [
-    "dist",
-    "api",
-    "mongo",
-    "index.js",
-    "README.md"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liveacid-software/support-ticket-module.git"

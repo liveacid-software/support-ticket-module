@@ -6,22 +6,25 @@ import TicketForm from './TicketForm';
 class SupportTicket extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { error: false, message: null, submitted: false};
+		
+		this.state = { 
+			error: false, 
+			message: null, 
+			submitted: false, 
+			api: props.apiPath ? props.apiPath : '/api/supportticket/submit'
+		};
+		// console.log("API  ENDPOINT PROPS: ", props);
 	}
 
 	componentDidMount() {
 	}
-
-	submitTicket = async (plane) => {
-		await axios.post('/api/planes', { ...plane, tail_number: plane.tailNumber });
-	};
 
 	onSubmit = async (data) => {
 		console.log("SUPPORT TICKET DATA: ", data);
 		try {
 			const {
 				data: { userInfo, success },
-			} = await axios.post('/api/supportticket/submit', { ...data });
+			} = await axios.post(this.state.api, { ...data });
 			if (success) {
 				console.log("Success!");
 				this.setState({error: false, submitted: true});

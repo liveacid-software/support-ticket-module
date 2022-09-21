@@ -27,12 +27,6 @@ class SupportTicket extends _react.Component {
   constructor(props) {
     super(props);
 
-    _defineProperty(this, "submitTicket", async plane => {
-      await _axios.default.post('/api/planes', _objectSpread(_objectSpread({}, plane), {}, {
-        tail_number: plane.tailNumber
-      }));
-    });
-
     _defineProperty(this, "onSubmit", async data => {
       console.log("SUPPORT TICKET DATA: ", data);
 
@@ -42,7 +36,7 @@ class SupportTicket extends _react.Component {
             userInfo,
             success
           }
-        } = await _axios.default.post('/api/supportticket/submit', _objectSpread({}, data));
+        } = await _axios.default.post(this.state.api, _objectSpread({}, data));
 
         if (success) {
           console.log("Success!");
@@ -64,8 +58,9 @@ class SupportTicket extends _react.Component {
     this.state = {
       error: false,
       message: null,
-      submitted: false
-    };
+      submitted: false,
+      api: props.apiPath ? props.apiPath : '/api/supportticket/submit'
+    }; // console.log("API  ENDPOINT PROPS: ", props);
   }
 
   componentDidMount() {}

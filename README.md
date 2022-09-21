@@ -23,10 +23,15 @@ Note: This package uses `formik`, `dotenv` and `mongoose` npm packages
 
 ```
 
-#### Mongoose client usage:
+#### React component usage:
+
+Add the component to a route passing the api endpoint to the compnent as a prop. Not: it will use the defined api endpoint to post the support ticket 
 
 ```
-// usage code here
+<Route
+  path="/supportticket"
+  render={(props) => <SupportTicket {...props} apiPath={'/api/supportticket/submit'} />}
+/>
 
 ```
 #### Helpful links

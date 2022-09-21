@@ -1,7 +1,7 @@
-// const api =  require('./api/routes');
+const SupportTicketApi =  require('./api/routes');
 const { SupportTicket } = require('./dist');
 
 module.exports = {
-//    api,
+    SupportTicketApi,
     SupportTicket
 };

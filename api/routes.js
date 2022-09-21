@@ -1,6 +1,6 @@
 // ==== Configurations with ENV vars =====
 // MONGO or POSTGRES
-// Github API info and Project
+// Github API info and Project for the issue creation
 // Email on/off and SMTP info
 // Authenticate or not ->  If not authenticated do not send email and no user record ref
 // Default customer email -> To send confirmation If no user email or record ref (no session)

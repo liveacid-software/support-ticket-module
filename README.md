@@ -41,3 +41,11 @@ https://www.pluralsight.com/guides/export-reactjs-components-as-node-modules-to-
 https://levelup.gitconnected.com/publish-react-components-as-an-npm-package-7a671a2fb7f
 
 https://codeburst.io/deploy-react-component-as-an-npm-library-d396efc25122
+
+
+##### mongoose issues:
+
+https://stackoverflow.com/questions/12754604/sharing-a-mongoose-instance-between-multiple-npm-packages
+
+https://www.npmjs.com/package/mongoose-global
+

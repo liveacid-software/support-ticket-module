@@ -1,3 +1,5 @@
+const { SupportTicket } = require('../mongo');
+
 const createTicket = async (req, res) => {
     const user = req.user; // IF no user return error
     // create mongo support record

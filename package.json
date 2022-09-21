@@ -22,8 +22,10 @@
     "axios": "^0.24.0",
     "express": "^4.18.1",
     "formik": "^2.2.9",
-    "mongoose": "^6.6.1",
     "web-vitals": "^1.1.2"
+  },
+  "peerDependencies": {
+    "mongoose": "5.x"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -4,7 +4,12 @@
   "author": "LiveACID Software",
   "version": "1.1.0",
   "private": false,
-  "main": "./index.js",
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./react": "./dist/index.js",
+    "./api": "./api/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liveacid-software/support-ticket-module.git"

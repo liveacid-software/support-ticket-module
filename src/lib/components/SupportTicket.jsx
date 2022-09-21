@@ -21,7 +21,7 @@ class SupportTicket extends Component {
 		try {
 			const {
 				data: { userInfo, success },
-			} = await axios.post('/supportticket/submit', { ...data });
+			} = await axios.post('/api/supportticket/submit', { ...data });
 			if (success) {
 				console.log("Success!");
 				this.setState({error: false, submitted: true});

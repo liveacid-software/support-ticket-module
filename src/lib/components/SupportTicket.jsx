@@ -6,7 +6,7 @@ import TicketForm from './TicketForm';
 class SupportTicket extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { erro: false, message: null, submitted: false};
+		this.state = { error: false, message: null, submitted: false};
 	}
 
 	componentDidMount() {
@@ -27,7 +27,7 @@ class SupportTicket extends Component {
 				this.setState({error: false, submitted: true});
 			} else this.setState({error: true});
 		} catch (err) {
-			console.log("error: ", error);
+			console.log("error: ", err);
 			this.setState({error: true});
 		}
 	};
@@ -35,12 +35,12 @@ class SupportTicket extends Component {
 	render() {
 		const {
 			error,
-			success
+			submitted,
 		} = this.state;
 
 		return (
 			<div>
-				{ !submitted ? <TicketForm onSubmit={onSubmit} error={error} /> : <p>Submitted Thanks!</p> }
+				{ !submitted ? <TicketForm onSubmit={this.onSubmit} error={error} /> : <p>Submitted Thanks!</p> }
 			</div>
 		);
 	}

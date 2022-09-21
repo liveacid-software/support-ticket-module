@@ -1,5 +1,7 @@
 import Button from './lib/components/Button';
 import Badge from './lib/components/Badge';
+import SupportTicket from './lib/components/SupportTicket';
+
 import './App.css';
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
       <br/>
      <h5>A button:</h5>
         <Button label="Enter" kind="primary"/>
+      <br/>
+      <SupportTicket></SupportTicket>
     </div>
   );
 }

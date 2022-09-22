@@ -25,12 +25,22 @@ Note: This package uses `formik`, `dotenv` and `mongoose` npm packages
 
 #### React component usage:
 
+##### Default API Endpoint `/api/supportticket/submit/`
+
+```
+import { SupportTicket } from 'support-ticket-module';
+
+<Route path="/supportticket" component={ SupportTicket } />
+
+```
+
+##### Custom API Endpoint
 Add the component to a route passing the api endpoint to the compnent as a prop. Not: it will use the defined api endpoint to post the support ticket 
 
 ```
 <Route
   path="/supportticket"
-  render={(props) => <SupportTicket {...props} apiPath={'/api/supportticket/submit'} />}
+  render={(props) => <SupportTicket {...props} apiPath={'/my/custom/supportticket/endpoint'} />}
 />
 
 ```

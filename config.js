@@ -23,13 +23,21 @@
          ssl: process.env.MONGODB_SSL,
          ca: process.env.MONGODB_CA_CERT,
      },
-     session: {
-         secret: process.env.SESSION_SECRET,
-         maxAge: parseInt(process.env.SESSION_MAX_AGE, 10),
-         collection: process.env.SESSION_COLLECTION || 'sessions',
-         resave: !!process.env.SESSION_RESAVE || false,
-         saveUninitialized: !!process.env.SESSION_SAVE_UNINITIALIZED || false,
-     }
+     email: {
+        from: process.env.SMTP_USERNAME,
+        dafault_to: process.env.FLIGHT_MANAGER_EMAIL,
+        smtp: {
+          host: process.env.SMTP_HOST,
+          port: process.env.SMTP_PORT,
+          secureConnection: true,
+          auth: {
+            user: process.env.SMTP_USERNAME,
+            pass: process.env.SMTP_PASSWORD
+          }
+        },
+        api_user: process.env.SENDGRID_API_USER,
+        api_key: process.env.SENDGRID_API_KEY,
+      },
  };
  
  // export default config;

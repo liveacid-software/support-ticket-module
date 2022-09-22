@@ -6,7 +6,7 @@
 - All API calls made from react are prefixed by `/api` to proxy to  the backend
 - There is not already a `/supportticket` endpoint established on the project.
 
-### Use and Configuration:
+## Use and Configuration:
 #### To configure this module use the followin ENV Vars in your project .env file
 
 ```
@@ -15,7 +15,7 @@
 
 Note: This package uses `formik`, `dotenv` and `mongoose` npm packages
 
-### Example of useage
+## Example of useage
 #### session usage with express:
 
 ```
@@ -23,9 +23,9 @@ Note: This package uses `formik`, `dotenv` and `mongoose` npm packages
 
 ```
 
-#### React component usage:
+### React component usage:
 
-##### Default API Endpoint `/api/supportticket/submit/`
+#### Default API Endpoint `/api/supportticket/submit/`
 
 ```
 import { SupportTicket } from 'support-ticket-module';
@@ -34,7 +34,7 @@ import { SupportTicket } from 'support-ticket-module';
 
 ```
 
-##### Custom API Endpoint
+#### Custom API Endpoint
 Add the component to a route passing the api endpoint to the compnent as a prop. Not: it will use the defined api endpoint to post the support ticket 
 
 ```
@@ -44,7 +44,7 @@ Add the component to a route passing the api endpoint to the compnent as a prop.
 />
 
 ```
-#### Helpful links
+## Helpful links
 
 https://www.pluralsight.com/guides/export-reactjs-components-as-node-modules-to-npm
 
@@ -60,8 +60,11 @@ https://stackoverflow.com/questions/12754604/sharing-a-mongoose-instance-between
 https://www.npmjs.com/package/mongoose-global
 
 
-#### ToDos:
+## ToDos:
 
-- pass user type params for permissions on the api endpoints
-- 
+- Add configs for SMTP 
+- Send email on submit
+- Add integration to GitHub issue API
+- pass user type params for permissions on the api endpoints (can accomplish this with ENV VARS too)
+- Add custom mongodb collection nam params (ENV Vars too)
 

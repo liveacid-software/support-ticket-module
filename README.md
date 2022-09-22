@@ -53,9 +53,15 @@ https://levelup.gitconnected.com/publish-react-components-as-an-npm-package-7a67
 https://codeburst.io/deploy-react-component-as-an-npm-library-d396efc25122
 
 
-##### mongoose issues:
+##### mongoose global things to consider:
 
 https://stackoverflow.com/questions/12754604/sharing-a-mongoose-instance-between-multiple-npm-packages
 
 https://www.npmjs.com/package/mongoose-global
+
+
+#### ToDos:
+
+- pass user type params for permissions on the api endpoints
+- 
 

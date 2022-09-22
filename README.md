@@ -62,6 +62,9 @@ https://www.npmjs.com/package/mongoose-global
 
 ## ToDos:
 
-- pass user type params for permissions on the api endpoints
-- 
+- Add configs for SMTP 
+- Send email on submit
+- Add integration to GitHub issue API
+- pass user type params for permissions on the api endpoints (can accomplish this with ENV VARS too)
+- Add custom mongodb collection nam params (ENV Vars too)
 

@@ -29,7 +29,7 @@
         smtp: {
           host: process.env.SMTP_HOST,
           port: process.env.SMTP_PORT,
-          secureConnection: true,
+          secure: true,
           auth: {
             user: process.env.SMTP_USERNAME,
             pass: process.env.SMTP_PASSWORD
@@ -38,6 +38,7 @@
         api_user: process.env.SENDGRID_API_USER,
         api_key: process.env.SENDGRID_API_KEY,
       },
+      company: process.env.COMPANY
  };
  
  // export default config;

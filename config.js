@@ -38,7 +38,8 @@
         api_user: process.env.SENDGRID_API_USER,
         api_key: process.env.SENDGRID_API_KEY,
       },
-      company: process.env.COMPANY
+      company: process.env.COMPANY,
+      app: process.env.APP_NAME
  };
  
  // export default config;

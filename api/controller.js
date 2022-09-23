@@ -54,7 +54,7 @@ const sendAdminEmail = async function(from, ticket) {
         else // else SMTP
             transporter = nodemailer.createTransport(SMTP);
 
-        let msg = "<h1> New LiveACID WorkFlow Support Ticket from: </h1>" + config.company + "<br/><br/>";
+        let msg = "<h1> New LiveACID WorkFlow Support Ticket from: </h1>" + config.company || config.app + "<br/><br/>";
             msg += "<p>Ticket ID: </p>"+ ticket._id +"<br/>";
             msg += "<p>Subject:</p>"+ ticket.subject +"<br/>";
             msg += "<p>Body: </p>" + ticket.body;

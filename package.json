@@ -27,7 +27,9 @@
   "peerDependencies": {
     "axios": "0.x",
     "express": "4.x",
-    "mongoose": "5.x"
+    "mongoose": "5.x",
+    "nodemailer": "6.x",
+    "nodemailer-sendgrid-transport": "0.x"
   },
   "scripts": {
     "start": "react-scripts start",

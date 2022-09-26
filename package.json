@@ -8,7 +8,9 @@
   "exports": {
     ".": "./dist/index.js",
     "./react": "./dist/index.js",
-    "./api": "./api/index.js"
+    "./api": "./api/index.js",
+    "./router": "./api/routes.js",
+    "./controller": "./api/controller.js"
   },
   "repository": {
     "type": "git",

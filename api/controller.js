@@ -1,5 +1,7 @@
 const { SupportTicket } = require('../mongo');
 const config  = require('../config');
+const nodemailer = require('nodemailer');
+const sgTransport = require('nodemailer-sendgrid-transport');
 // const SMTP = config.email.smtp;
 const fromEmail = config.email.from;
 

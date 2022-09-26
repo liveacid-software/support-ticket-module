@@ -29,7 +29,7 @@
         smtp: {
           host: process.env.SMTP_HOST,
           port: process.env.SMTP_PORT,
-          secure: true,
+          // secure: true, // we dont use  this. 
           auth: {
             user: process.env.SMTP_USERNAME,
             pass: process.env.SMTP_PASSWORD

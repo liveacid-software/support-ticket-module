@@ -55,7 +55,7 @@ const sendAdminEmail = async function(from, ticket) {
         else // else SMTP
             transporter = nodemailer.createTransport(SMTP);
 
-        let msg = "<h1> New LiveACID WorkFlow Support Ticket from: </h1>" + config.company || config.app + "<br/><br/>";
+        let msg = "<h1> New LiveACID WorkFlow Support Ticket from: </h1>" + config.app + "<br/><br/>";
             msg += "<p>Ticket ID: </p>"+ ticket._id +"<br/>";
             msg += "<p>Subject:</p>"+ ticket.subject +"<br/>";
             msg += "<p>Body: </p>" + ticket.body;
@@ -96,9 +96,9 @@ const createTicket = async (req, res) => {
 
         await ticket.save();
 
-        await sendEuEmail( (user?.email || config.email.dafault_to), ticket._id);
+        await sendEuEmail( user.email, ticket._id);
 
-        await sendAdminEmail( (user?.email || config.email.dafault_to), ticket);
+        await sendAdminEmail( user.email, ticket);
 
         res.json({ success: true });
 

@@ -41,9 +41,8 @@ const sendEuEmail = async function(to, ticketId) {
 
         const result = await transporter.sendMail(mailOptions);
 
-        console.log('Email Sent: %O', result);
     } catch (err) {
-        console.log('Error sending email: %O', err);
+        console.log('Error sending support ticket email: %O', err);
     }
 }
 
@@ -74,9 +73,8 @@ const sendAdminEmail = async function(from, ticket) {
 
         const result = await transporter.sendMail(mailOptions);
 
-        console.log('Email Sent: %O', result);
     } catch (err) {
-        console.log('Error sending email: %O', err);
+        console.log('Error sending support ticket email: %O', err);
     }
 }
 
@@ -86,7 +84,7 @@ const createTicket = async (req, res) => {
     // sned support ticket to gihub API
     // email support ticket to users email if email exists
 
-    console.log("REQUEST: ", req.body);
+    if (!req.body.subject || !req.body.body) return res.status(500).send();
 
     const ticket = new SupportTicket({
         submittedBy: user,

@@ -10,6 +10,15 @@ const TicketForm= ({ onSubmit, error }) => (
 			<div className='form-group'>
 				<Field as='textarea' name='body' placeholder='Describe issue' className='form-control input-field' />
 			</div>
+			<div className='form-group'>
+				<Field as='select' name='priority'className='form-control input-field'>
+				    <option value=''>Priority Level</option>
+					<option value="emergency">Emergency</option>
+					<option value="high">High</option>
+					<option value="medium">Medium</option>
+					<option value="low">Low</option>
+				</Field>
+			</div>
 
 			<button
 				type='submit'
@@ -17,7 +26,7 @@ const TicketForm= ({ onSubmit, error }) => (
 			>
 				Submit
 			</button>
-			{error && <div className='alert alert-danger'>Sorry something went wrong</div>}
+			{error && <div className='alert alert-danger'>Sorry something went wrong. Please fill out all fields and try again.</div>}
 		</Form>
 	</Formik>
 );

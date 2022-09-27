@@ -6,8 +6,8 @@ const SupportTicketSchema = mongoose.Schema(
     {
         submittedBy: { type: ObjectId, ref: 'User' },
         subject: String,
-        body: String
-        priority: 
+        body: String,
+        priority: { type: String, enum: ['emergency', 'high', 'medium', 'low'] }
     },
     {
 		timestamps: true,

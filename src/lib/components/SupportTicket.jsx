@@ -44,7 +44,7 @@ class SupportTicket extends Component {
 		return (
 			<div className='card'>
 				<div className='card-body login-card-body'>
-				 	<p className='login-box-msg'>Have an Issue? Submit a support ticket</p>
+				 	<p className='login-box-msg'>Have an Issue? Submit a support ticket to <a href="https://liveacid.com">LiveACID Software</a></p>
 					{ !submitted ? <TicketForm onSubmit={this.onSubmit} error={error} /> : <p>Submitted Thanks!</p> }
 				</div>
 			</div>

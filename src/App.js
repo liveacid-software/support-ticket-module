@@ -1,5 +1,3 @@
-import Button from './lib/components/Button';
-import Badge from './lib/components/Badge';
 import SupportTicket from './lib/components/SupportTicket';
 
 import './App.css';

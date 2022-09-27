@@ -76,7 +76,9 @@ class SupportTicket extends _react.Component {
       className: "card-body login-card-body"
     }, /*#__PURE__*/_react.default.createElement("p", {
       className: "login-box-msg"
-    }, "Have an Issue? Submit a support ticket"), !submitted ? /*#__PURE__*/_react.default.createElement(_TicketForm.default, {
+    }, "Have an Issue? Submit a support ticket to ", /*#__PURE__*/_react.default.createElement("a", {
+      href: "https://liveacid.com"
+    }, "LiveACID Software")), !submitted ? /*#__PURE__*/_react.default.createElement(_TicketForm.default, {
       onSubmit: this.onSubmit,
       error: error
     }) : /*#__PURE__*/_react.default.createElement("p", null, "Submitted Thanks!")));

@@ -36,12 +36,26 @@ const TicketForm = _ref => {
     name: "body",
     placeholder: "Describe issue",
     className: "form-control input-field"
-  })), /*#__PURE__*/_react.default.createElement("button", {
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/_react.default.createElement(_formik.Field, {
+    as: "select",
+    name: "priority",
+    className: "form-control input-field"
+  }, /*#__PURE__*/_react.default.createElement("option", {
+    value: "emergency"
+  }, "Emergency"), /*#__PURE__*/_react.default.createElement("option", {
+    value: "high"
+  }, "High"), /*#__PURE__*/_react.default.createElement("option", {
+    value: "medium"
+  }, "Mediu "), /*#__PURE__*/_react.default.createElement("option", {
+    value: "low"
+  }, "Low"))), /*#__PURE__*/_react.default.createElement("button", {
     type: "submit",
     className: "btn btn-lg btn-inreach btn-block btn-bordred btn-flat sign-up-btn sign-in-btn"
   }, "Submit"), error && /*#__PURE__*/_react.default.createElement("div", {
     className: "alert alert-danger"
-  }, "Sorry something went wrong")));
+  }, "Sorry something went wrong. Please fill out all fields and try again.")));
 };
 
 var _default = TicketForm;

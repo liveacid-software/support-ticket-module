@@ -42,8 +42,11 @@ class SupportTicket extends Component {
 		} = this.state;
 
 		return (
-			<div>
-				{ !submitted ? <TicketForm onSubmit={this.onSubmit} error={error} /> : <p>Submitted Thanks!</p> }
+			<div className='card'>
+				<div className='card-body login-card-body'>
+				 	<p className='login-box-msg'>Have an Issue? Submit a support ticket</p>
+					{ !submitted ? <TicketForm onSubmit={this.onSubmit} error={error} /> : <p>Submitted Thanks!</p> }
+				</div>
 			</div>
 		);
 	}

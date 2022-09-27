@@ -70,10 +70,16 @@ class SupportTicket extends _react.Component {
       error,
       submitted
     } = this.state;
-    return /*#__PURE__*/_react.default.createElement("div", null, !submitted ? /*#__PURE__*/_react.default.createElement(_TicketForm.default, {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "card"
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      className: "card-body login-card-body"
+    }, /*#__PURE__*/_react.default.createElement("p", {
+      className: "login-box-msg"
+    }, "Have an Issue? Submit a support ticket"), !submitted ? /*#__PURE__*/_react.default.createElement(_TicketForm.default, {
       onSubmit: this.onSubmit,
       error: error
-    }) : /*#__PURE__*/_react.default.createElement("p", null, "Submitted Thanks!"));
+    }) : /*#__PURE__*/_react.default.createElement("p", null, "Submitted Thanks!")));
   }
 
 }

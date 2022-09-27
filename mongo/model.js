@@ -7,6 +7,7 @@ const SupportTicketSchema = mongoose.Schema(
         submittedBy: { type: ObjectId, ref: 'User' },
         subject: String,
         body: String
+        priority: 
     },
     {
 		timestamps: true,

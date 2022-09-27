@@ -24,8 +24,8 @@
          ca: process.env.MONGODB_CA_CERT,
      },
      email: {
-        from: process.env.SMTP_USERNAME,
-        dafault_to: process.env.FLIGHT_MANAGER_EMAIL,
+        // from: process.env.SMTP_USERNAME,
+        // dafault_to: process.env.EMAIL_DEFAULT_TO,
         smtp: {
           host: process.env.SMTP_HOST,
           port: process.env.SMTP_PORT,

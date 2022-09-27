@@ -43,12 +43,14 @@ const TicketForm = _ref => {
     name: "priority",
     className: "form-control input-field"
   }, /*#__PURE__*/_react.default.createElement("option", {
+    value: ""
+  }, "Priority Level"), /*#__PURE__*/_react.default.createElement("option", {
     value: "emergency"
   }, "Emergency"), /*#__PURE__*/_react.default.createElement("option", {
     value: "high"
   }, "High"), /*#__PURE__*/_react.default.createElement("option", {
     value: "medium"
-  }, "Mediu "), /*#__PURE__*/_react.default.createElement("option", {
+  }, "Medium"), /*#__PURE__*/_react.default.createElement("option", {
     value: "low"
   }, "Low"))), /*#__PURE__*/_react.default.createElement("button", {
     type: "submit",

@@ -11,7 +11,7 @@ const TicketForm= ({ onSubmit, error }) => (
 				<Field as='textarea' name='body' placeholder='Describe issue' className='form-control input-field' />
 			</div>
 			<div className='form-group'>
-				<Field as='select' name='priority'className='form-control input-field'>
+				<Field as='select' name='priority' className='form-control'>
 				    <option value=''>Priority Level</option>
 					<option value="emergency">Emergency</option>
 					<option value="high">High</option>

@@ -39,8 +39,6 @@ const sendEuEmail = async function(to, ticketId) {
         // send mail with defined transport object
         await transporter.sendMail(mailOptions);
 
-        const result = await transporter.sendMail(mailOptions);
-
     } catch (err) {
         console.log('Error sending support ticket email: %O', err);
     }
@@ -64,15 +62,13 @@ const sendAdminEmail = async function(from, ticket) {
         const mailOptions = {
             from: from, // sender address
             to: 'developer@liveacid.com', // list of receivers
-            subject: config.company + ' - New Support Ticket', // Subject line
+            subject: ticket.priority + ' - New Support Ticket from: ' + config.app, // Subject line
             text: '', // plain text body
             html: msg, // html body
         };
 
         // send mail with defined transport object
         await transporter.sendMail(mailOptions);
-
-        const result = await transporter.sendMail(mailOptions);
 
     } catch (err) {
         console.log('Error sending support ticket email: %O', err);
@@ -93,8 +89,6 @@ const createTicket = async (req, res) => {
         body: req.body.body,
         priority: req.body.priority,
     });
-
-    console.log(ticket);
 
     try {
 

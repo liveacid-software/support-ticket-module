@@ -1,5 +1,16 @@
 # support-ticket-module
 
+## Background and Description
+
+The support-ticket-module is a fullstack module to handle creating an submitting support tickets to LiveACID software through any instance of LiveACID WorkFlow.
+
+The module has two entry points: 
+1. `api/` for the router and/or controller to access and import the backend code
+2. `./` for the react component to include the component in the menu and display on a WorkFlow instance.
+
+### File stucture
+The backend and the frontend code are split into 2 directories. The route & controllers live in the `api/` directory and the react compnent files are in the `src/lib/` directory which get compiled into the `dist/` directory. The mongo schema. is defined in the `mongo/` directory. 
+
 ## Assumptions
 ### This module assumes the following WorkFlow configurations:
 
@@ -44,21 +55,6 @@ Add the component to a route passing the api endpoint to the compnent as a prop.
 />
 
 ```
-## Helpful links
-
-https://www.pluralsight.com/guides/export-reactjs-components-as-node-modules-to-npm
-
-https://levelup.gitconnected.com/publish-react-components-as-an-npm-package-7a671a2fb7f
-
-https://codeburst.io/deploy-react-component-as-an-npm-library-d396efc25122
-
-
-##### mongoose global things to consider:
-
-https://stackoverflow.com/questions/12754604/sharing-a-mongoose-instance-between-multiple-npm-packages
-
-https://www.npmjs.com/package/mongoose-global
-
 
 ## ToDos:
 

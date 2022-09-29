@@ -3,6 +3,7 @@ const axios = require('axios').default;
 
 const createIssue = (ticket, config) => {
     const data = {
+        "Submitter Email": `${ticket.user.email}`,
         "title": `${ticket.subject}`,
         "body": `Ticket Id: ${ticket._id}\n Priority:${ticket.priority}\n Body:${ticket.body}`,
         "labels": ["support"]

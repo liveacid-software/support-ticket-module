@@ -1,39 +1,24 @@
-const { SupportTicket } = require('../mongo');
-const config  = require('../config');
-const nodemailer = require('nodemailer');
-const sgTransport = require('nodemailer-sendgrid-transport');
-// const SMTP = config.email.smtp;
-const fromEmail = config.email.from;
+const config = require('../config')
+const { getEmailTransport } = require('./email')
+const { createIssue } = require('./github')
+const ticketBuilder = require('./ticket')
 
-const sgOptions = {
-  auth: {
-    api_key: config.email.api_key
-  }
-};
-
-const SMTP = config.email.smtp;
-
-const sendEuEmail = async function(to, ticketId) {
+const sendEuEmail = async function (transporter, to, ticketId) {
 
     try {
-        let transporter;
-        if (config.email.api_key) // if sendgrid API
-            transporter = nodemailer.createTransport(sgTransport(sgOptions));
-        else // else SMTP
-            transporter = nodemailer.createTransport(SMTP);
 
         let msg = "<h1> Your LiveACID WorkFlow Support Ticket </h1><br/><br/>";
-            msg += "<p>Thank you for submitting a LiveACID WorkFlow support Ticket.</p><br/>";
-            msg += "<p>Your support ticket number is:</p>"+ ticketId +"<br/>";
-            msg += "<p>We will address your ticket within 48hrs. If your ticket requires follow-up we will reach out to you via your email on your account</p><br/>";
-            msg += "<br/><br/>Thank you!<br/> - <a href='http://www.liveacid.com/'>LiveACID Software</a>";
+        msg += "<p>Thank you for submitting a LiveACID WorkFlow support Ticket.</p><br/>";
+        msg += "<p>Your support ticket number is:</p>" + ticketId + "<br/>";
+        msg += "<p>We will address your ticket within 48hrs. If your ticket requires follow-up we will reach out to you via your email on your account</p><br/>";
+        msg += "<br/><br/>Thank you!<br/> - <a href='http://www.liveacid.com/'>LiveACID Software</a>";
 
         const mailOptions = {
-        from: '"LiveACID WorkFlow" <developer@liveacid.com>', // sender address
-        to: to, // list of receivers
-        subject: 'Your LiveACID Support Ticket', // Subject line
-        text: '', // plain text body
-        html: msg, // html body
+            from: '"LiveACID WorkFlow" <developer@liveacid.com>', // sender address
+            to: to, // list of receivers
+            subject: 'Your LiveACID Support Ticket', // Subject line
+            text: '', // plain text body
+            html: msg, // html body
         };
 
         // send mail with defined transport object
@@ -44,20 +29,15 @@ const sendEuEmail = async function(to, ticketId) {
     }
 }
 
-const sendAdminEmail = async function(from, ticket) {
+const sendAdminEmail = async function (transporter, from, ticket) {
 
     try {
-        let transporter;
-        if (config.email.api_key) // if sendgrid API
-            transporter = nodemailer.createTransport(sgTransport(sgOptions));
-        else // else SMTP
-            transporter = nodemailer.createTransport(SMTP);
 
         let msg = "<h1> " + ticket.priority + " New LiveACID WorkFlow Support Ticket from: </h1>" + config.app + "<br/><br/>";
-            msg += "<p>Ticket ID: </p>"+ ticket._id +"<br/>";
-            msg += "<p>Subject:</p>"+ ticket.subject +"<br/>";
-            msg += "<p>Priority:</p>"+ ticket.priority +"<br/>";
-            msg += "<p>Body: </p>" + ticket.body;
+        msg += "<p>Ticket ID: </p>" + ticket._id + "<br/>";
+        msg += "<p>Subject:</p>" + ticket.subject + "<br/>";
+        msg += "<p>Priority:</p>" + ticket.priority + "<br/>";
+        msg += "<p>Body: </p>" + ticket.body;
 
         const mailOptions = {
             from: from, // sender address
@@ -83,20 +63,17 @@ const createTicket = async (req, res) => {
 
     if (!req.body.subject || !req.body.body) return res.status(500).send();
 
-    const ticket = new SupportTicket({
-        submittedBy: user,
-        subject: req.body.subject,
-        body: req.body.body,
-        priority: req.body.priority,
-    });
-
     try {
 
-        await ticket.save();
+        const ticket = await ticketBuilder.saveTicket(user, req.body);
 
-        await sendEuEmail( user.email, ticket._id);
+        const transporter = getEmailTransport(config)
 
-        await sendAdminEmail( user.email, ticket);
+        await sendEuEmail(transporter, user.email, ticket._id);
+
+        await sendAdminEmail(transporter, user.email, ticket);
+
+        await createIssue(ticket, config)
 
         res.json({ success: true });
 

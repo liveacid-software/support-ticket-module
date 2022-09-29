@@ -3,3 +3,5 @@ public/*
 yarn.lock
 babel.config.json
 .env
+test/*
+.vscode

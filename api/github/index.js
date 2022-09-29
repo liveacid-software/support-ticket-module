@@ -4,7 +4,7 @@ const axios = require('axios').default;
 const createIssue = (ticket, config) => {
     const data = {
         "title": `${ticket.subject}`,
-        "body": `Submitter Emial: ${ticket.user.email}\n Ticket Id: ${ticket._id}\n Priority:${ticket.priority}\n Body:${ticket.body}`,
+        "body": `Submitter Emial: ${ticket.submittedBy?.email}\n Ticket Id: ${ticket._id}\n Priority:${ticket.priority}\n Body:${ticket.body}`,
         "labels": ["support"]
     }
     return axios.post(

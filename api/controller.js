@@ -34,6 +34,7 @@ const sendAdminEmail = async function (transporter, from, ticket) {
     try {
 
         let msg = "<h1> " + ticket.priority + " New LiveACID WorkFlow Support Ticket from: </h1>" + config.app + "<br/><br/>";
+        msg += "<p>User Email: </p>" + from + "<br/>";
         msg += "<p>Ticket ID: </p>" + ticket._id + "<br/>";
         msg += "<p>Subject:</p>" + ticket.subject + "<br/>";
         msg += "<p>Priority:</p>" + ticket.priority + "<br/>";
@@ -42,6 +43,7 @@ const sendAdminEmail = async function (transporter, from, ticket) {
         const mailOptions = {
             from: from, // sender address
             to: 'developer@liveacid.com', // list of receivers
+            replyTo: from,
             subject: ticket.priority + ' - New Support Ticket from: ' + config.app, // Subject line
             text: '', // plain text body
             html: msg, // html body

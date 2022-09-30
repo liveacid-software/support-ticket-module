@@ -31,13 +31,25 @@ SMTP_PASSWORD=
 SMTP_PORT=
 SMTP_USERNAME=
 
-// OR Sendgrid Configurations for email notifications on ticket submittal
+// OR Sendgrid Configurations for email notifications on ticket submittal. 
+// Note: if the SNEDGRID_API_KEY is populated the package will send emails via. the Sendgrid API
 SENDGRID_API_USER= 
 SENDGRID_API_KEY= 
 
 // REQUIRED: GetHub API Configurations for issue creation on Submittal
 GITHUB_ISSUE_REPO_PATH=
 GITHUB_TOKEN=
+
+// REQUIRED: MongoDB configs that your base project uses will be used by this package for ticket collection and record storgage
+MONGODB_USERNAME=
+MONGODB_PASSWORD=
+MONGODB_PROTOCOL=
+MONGODB_HOSTNAME=
+MONGODB_PARAMS=
+MONGODB_PORT=
+MONGODB_DATABASE=
+MONGODB_SSL=
+MONGODB_CA_CERT=
 
 ```
 

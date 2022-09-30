@@ -31,8 +31,12 @@ SMTP_PASSWORD=
 SMTP_PORT=
 SMTP_USERNAME=
 
-// GetHub API Configurations for issue creation on Submittal
+// OR Sendgrid Configurations for email notifications on ticket submittal
 
+
+// REQUIRED: GetHub API Configurations for issue creation on Submittal
+GITHUB_ISSUE_REPO_PATH=
+GITHUB_TOKEN=
 
 ```
 

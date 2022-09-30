@@ -20,7 +20,7 @@ The backend and the frontend code are split into 2 directories. The route & cont
 - All API calls made from react are prefixed by `/api` to proxy to the backend
 - There is not already a `/supportticket` endpoint established on the project.
 
-## Use and Configuration:
+## Configuration:
 
 #### To configure this module use the followin ENV Vars in your base project .env file that uses this module
 
@@ -55,12 +55,14 @@ MONGODB_CA_CERT=
 
 Note: This package uses `formik`, `dotenv` and `mongoose` npm packages
 
-## Example of useage
+## Useage examples
 
 #### session usage with express:
 
 ```
-// use code here
+const SupportTicketApi = require('support-ticket-module/api').SupportTicketApi;
+
+// The SupportTicketApi export contains the espress router for the default support ticket endpoints (currently only `/api/supportticket/submit`)
 
 ```
 

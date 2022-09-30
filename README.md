@@ -75,7 +75,7 @@ const { SupportTicketController } = require('support-ticket-module/api');
 // OR
 const SupportTicketController = require('support-ticket-module/controller');
 
-router.post('/supportticket/submit', /* middleware auth fxn*/, supportTicketController.createTicket);
+router.post('/supportticket/submit', /* middleware auth fxn*/, SupportTicketController.createTicket);
 
 ```
 

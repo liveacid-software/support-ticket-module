@@ -22,7 +22,7 @@ The backend and the frontend code are split into 2 directories. The route & cont
 
 ## Use and Configuration:
 
-#### To configure this module use the followin ENV Vars in your project .env file
+#### To configure this module use the followin ENV Vars in your base project .env file that uses this module
 
 ```
 // SMTP Configurations for email notifications on ticket submittal
@@ -32,7 +32,8 @@ SMTP_PORT=
 SMTP_USERNAME=
 
 // OR Sendgrid Configurations for email notifications on ticket submittal
-
+SENDGRID_API_USER= 
+SENDGRID_API_KEY= 
 
 // REQUIRED: GetHub API Configurations for issue creation on Submittal
 GITHUB_ISSUE_REPO_PATH=

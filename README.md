@@ -57,12 +57,25 @@ Note: This package uses `formik`, `dotenv` and `mongoose` npm packages
 
 ## Useage examples
 
-#### session usage with express:
+### Session usage with builtin express router:
 
 ```
-const SupportTicketApi = require('support-ticket-module/api').SupportTicketApi;
+const { SupportTicketApi } = require('support-ticket-module/api');
+// OR
+const SupportTicketApi = require('support-ticket-module/router');
 
 // The SupportTicketApi export contains the espress router for the default support ticket endpoints (currently only `/api/supportticket/submit`)
+
+```
+
+### Controller only usage:
+
+```
+const { SupportTicketController } = require('support-ticket-module/api');
+// OR
+const SupportTicketController = require('support-ticket-module/controller');
+
+router.post('/supportticket/submit', /* middleware auth fxn*/, supportTicketController.createTicket);
 
 ```
 

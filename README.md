@@ -25,6 +25,14 @@ The backend and the frontend code are split into 2 directories. The route & cont
 #### To configure this module use the followin ENV Vars in your project .env file
 
 ```
+// SMTP Configurations for email notifications on ticket submittal
+SMTP_HOST=
+SMTP_PASSWORD=
+SMTP_PORT=
+SMTP_USERNAME=
+
+// GetHub API Configurations for issue creation on Submittal
+
 
 ```
 

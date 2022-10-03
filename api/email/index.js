@@ -2,8 +2,10 @@ const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
 
 const sgOptions = (config) => {
-    auth: {
-        api_key: config.email.api_key
+    return {
+        auth: {
+            api_key: config.email.api_key
+        }
     }
 };
 

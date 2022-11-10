@@ -14,7 +14,7 @@ const sendEuEmail = async function (transporter, to, ticketId) {
         msg += "<br/><br/>Thank you!<br/> - <a href='http://www.liveacid.com/'>LiveACID Software</a>";
 
         const mailOptions = {
-            from: '"LiveACID WorkFlow" <developer@liveacid.com>', // sender address
+            from: '"LiveACID WorkFlow" <workflow@liveacid.com>', // sender address
             to: to, // list of receivers
             subject: 'Your LiveACID Support Ticket', // Subject line
             text: '', // plain text body
@@ -41,8 +41,8 @@ const sendAdminEmail = async function (transporter, from, ticket) {
         msg += "<p>Body: </p>" + ticket.body;
 
         const mailOptions = {
-            from: from, // sender address
-            to: 'developer@liveacid.com', // list of receivers
+            from: 'workflow@livecaid.com', // sender address
+            to: 'support@liveacid.com', // list of receivers
             replyTo: from,
             subject: ticket.priority + ' - New Support Ticket from: ' + config.app, // Subject line
             text: '', // plain text body

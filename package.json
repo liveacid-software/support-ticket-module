@@ -2,7 +2,7 @@
   "name": "support-ticket-module",
   "description": "Module for support ticket submital including react components and routes",
   "author": "LiveACID Software",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "private": false,
   "main": "dist/index.js",
   "exports": {
@@ -27,7 +27,7 @@
   "peerDependencies": {
     "axios": "0.x",
     "express": "4.x",
-    "mongoose": "5.x",
+    "mongoose": "6.x",
     "nodemailer": "6.x",
     "nodemailer-sendgrid-transport": "0.x"
   },

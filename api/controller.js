@@ -41,7 +41,7 @@ const sendAdminEmail = async function (transporter, from, ticket) {
         msg += "<p>Body: </p>" + ticket.body;
 
         const mailOptions = {
-            from: 'workflow@livecaid.com', // sender address
+            from: '"LiveACID WorkFlow" <workflow@liveacid.com>', // sender address
             to: 'support@liveacid.com', // list of receivers
             replyTo: from,
             subject: ticket.priority + ' - New Support Ticket from: ' + config.app, // Subject line

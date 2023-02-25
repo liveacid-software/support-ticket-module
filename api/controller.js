@@ -33,7 +33,7 @@ const sendAdminEmail = async function (transporter, from, ticket) {
 
     try {
 
-        let msg = "<h1> " + ticket.priority + " New LiveACID WorkFlow Support Ticket from: </h1>" + config.app + "<br/><br/>";
+        let msg = "<h1>" + ticket.priority + " - New LiveACID WorkFlow Support Ticket from: " + config.app + "</h1><br/><br/>";
         msg += "<p>User Email: </p>" + from + "<br/>";
         msg += "<p>Ticket ID: </p>" + ticket._id + "<br/>";
         msg += "<p>Subject:</p>" + ticket.subject + "<br/>";

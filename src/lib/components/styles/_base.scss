@@ -32,4 +32,19 @@ button {
     &:focus {
       outline: none;
     }
-  }
+}
+
+label {
+  padding: 1rem;
+  margin: 1rem;
+  font-family: sans-serif;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+span {
+  padding: 1rem;
+  margin: 1rem;
+  font-family: sans-serif;
+  border: 1px solid #ccc;
+}

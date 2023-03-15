@@ -1,6 +1,6 @@
 const config = require('../config')
 const { getEmailTransport } = require('./email')
-const { createIssue } = require('./github')
+const { createIssue, uploadFiles } = require('./github')
 const ticketBuilder = require('./ticket')
 
 const sendEuEmail = async function (transporter, to, ticketId) {
@@ -68,6 +68,7 @@ const createTicket = async (req, res) => {
     try {
 
         const ticket = await ticketBuilder.saveTicket(user, req.body);
+        const files = [];
 
         const transporter = getEmailTransport(config)
 
@@ -75,7 +76,11 @@ const createTicket = async (req, res) => {
 
         await sendAdminEmail(transporter, user.email, ticket);
 
-        await createIssue(ticket, config)
+        if (ticket.files && ticket.files.length > 0) {
+            files = await uploadFiles(ticket.files, config);
+        }
+
+        await createIssue(ticket, files, config);
 
         res.json({ success: true });
 

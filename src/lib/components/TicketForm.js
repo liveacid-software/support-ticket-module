@@ -8,6 +8,13 @@ const TicketForm = ({ onSubmit, error }) => {
 		hiddenFileInput.current.click();
 	};
 
+	const toBase64 = file => new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = () => resolve(reader.result);
+		reader.onerror = error => reject(error);
+	});
+
 	return (
 		<Formik initialValues={{ subject: '', body: '', files: [] }} onSubmit={onSubmit}>
 			{({ values, setFieldValue }) => (
@@ -23,10 +30,19 @@ const TicketForm = ({ onSubmit, error }) => {
 					<Field name='files' type='hidden' />
 					<div className='form-group' style={{ display: 'flex', flexWrap: 'wrap' }}>
 						<div style={{ width: 'auto', marginRight: '8px' }}>
-							<input hidden id='files' ref={hiddenFileInput} name='files' type='file' onChange={(e) => {
+							<input hidden id='files' ref={hiddenFileInput} name='files' type='file' onChange={async (e) => {
 								if (!values.files || !Array.isArray(values.files) || e.currentTarget.files.length == 0) return;
 								const oldFiles = values.files;
-								const newData = oldFiles?.concat(e.currentTarget.files[0]);
+								const selectedFile = e.currentTarget.files[0];
+								let base64File = '';
+								try {
+									base64File = await toBase64(selectedFile);
+								} catch (error) {
+									console.log('error reading file', error);
+									return;
+								}
+								const cleanFile = {name: selectedFile.name, content: base64File}
+								const newData = oldFiles?.concat(cleanFile);
 								setFieldValue('files', newData);
 							}} />
 							<button type='button' className='form-control' onClick={handleClick}>

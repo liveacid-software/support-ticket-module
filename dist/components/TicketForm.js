@@ -19,15 +19,63 @@ const TicketForm = _ref => {
 
   const hiddenFileInput = _react.default.useRef(null);
 
+  const [errorMessage, setErrorMessage] = _react.default.useState('');
+
   const handleClick = e => {
     hiddenFileInput.current.click();
+  };
+
+  const addFile = async (filePicker, values, setFieldValue) => {
+    if (!values.files || !Array.isArray(values.files) || filePicker.currentTarget.files.length == 0) return;
+    const oldFiles = values.files;
+    const selectedFile = filePicker.currentTarget.files[0];
+    let base64File = '';
+
+    if (oldFiles.length > 4) {
+      setErrorMessage('You have attached the maximum number of files.');
+      return;
+    } else {
+      setErrorMessage('');
+    }
+
+    if (!validateFile(selectedFile)) {
+      setErrorMessage('The selected file type is invalid.');
+      return;
+    } else {
+      setErrorMessage('');
+    }
+
+    try {
+      base64File = await toBase64(selectedFile);
+    } catch (err) {
+      console.log('error reading file', err);
+      return;
+    }
+
+    const cleanFile = {
+      name: selectedFile.name,
+      content: base64File
+    };
+    const newData = oldFiles === null || oldFiles === void 0 ? void 0 : oldFiles.concat(cleanFile);
+    setFieldValue('files', newData);
+  };
+
+  const validateFile = file => {
+    let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif\.svg|\.log|\.docx|\.xlsx|\.pptx|\.txt|\.pdf|\.zip|\.gz|\.tgz|\.mp4|\.mov|\.webm)$/i;
+
+    if (!allowedExtensions.exec(file.webkitRelativePath)) {
+      console.log('Invalid file type');
+      return false;
+    }
+
+    return true;
   };
 
   const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
-    reader.onload = () => resolve(reader.result);
+    reader.onload = () => resolve(reader.result.replace('data:', '').replace(/^.+,/, ''));
 
     reader.onerror = error => reject(error);
   });
@@ -79,24 +127,7 @@ const TicketForm = _ref => {
       name: "files",
       type: "file",
       onChange: async e => {
-        if (!values.files || !Array.isArray(values.files) || e.currentTarget.files.length == 0) return;
-        const oldFiles = values.files;
-        const selectedFile = e.currentTarget.files[0];
-        let base64File = '';
-
-        try {
-          base64File = await toBase64(selectedFile);
-        } catch (error) {
-          console.log('error reading file', error);
-          return;
-        }
-
-        const cleanFile = {
-          name: selectedFile.name,
-          content: base64File
-        };
-        const newData = oldFiles === null || oldFiles === void 0 ? void 0 : oldFiles.concat(cleanFile);
-        setFieldValue('files', newData);
+        addFile(e, values, setFieldValue);
       }
     }), /*#__PURE__*/_react.default.createElement("button", {
       type: "button",
@@ -123,8 +154,12 @@ const TicketForm = _ref => {
       onClick: e => {
         const newFiles = values.files;
         const index = newFiles.findIndex(f => f.name === file.name);
-        newFiles.splice(index, 1);
-        setFieldValue('files', newFiles);
+
+        if (index !== -1) {
+          newFiles.splice(index, 1);
+          setFieldValue('files', newFiles);
+          setErrorMessage('');
+        }
       }
     }, "\u2715 \xA0 ", file.name))), /*#__PURE__*/_react.default.createElement("div", {
       className: "form-group"
@@ -147,7 +182,9 @@ const TicketForm = _ref => {
       className: "btn btn-lg btn-inreach btn-block btn-bordred btn-flat sign-up-btn sign-in-btn"
     }, "Submit"), error && /*#__PURE__*/_react.default.createElement("div", {
       className: "alert alert-danger"
-    }, "Sorry something went wrong. Please fill out all fields and try again."));
+    }, "Sorry, something went wrong. Please fill out all fields and try again."), !error && errorMessage !== '' && /*#__PURE__*/_react.default.createElement("div", {
+      className: "alert alert-danger"
+    }, errorMessage));
   });
 };
 

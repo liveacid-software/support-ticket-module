@@ -4,7 +4,7 @@ const axios = require('axios').default;
 const createIssue = (ticket, files, config) => {
     let fileEmbeds = '\n';
     files.forEach(file => {
-        fileEmbeds += '\n <img alt="user uploaded image" src="' + file + '">';
+        fileEmbeds += '\n![attachment](' + file + ')';
     });
     const body = `Submitter Email: ${ticket.submittedBy?.email}\n Ticket Id: ${ticket._id}\n Priority:${ticket.priority}\n Body:${ticket.body} ${fileEmbeds}`;
     
@@ -26,16 +26,26 @@ const createIssue = (ticket, files, config) => {
 
 }
 
+const splitAndTruncate = filename => {
+    var parts = filename.split('.');
+    let cleanName = (parts.length > 2) ? parts.slice(0, parts.length-1).join('.') : parts[0];
+    cleanName = (cleanName.length > 50) ? cleanName.slice(0, 49) : cleanName;
+    return {
+        main: cleanName,
+        ext: parts[parts.length - 1]
+    };
+  }
+
 const uploadFiles = async (files, config) => {
     let fileUrls = [];
     await Promise.all(files.map(async (file) => {
-        // UPLOAD FILE
+        const fileName = splitAndTruncate(file.name);
         const data = {
-            "message": 'user file upload: ' + file.name,
+            "message": 'user file: ' + fileName.main,
             "content": file.content
         }
         const result = await axios.put(
-            `https://api.github.com/repos/liveacid-software/support-ticket-images/contents/${file.name}`,
+            `https://api.github.com/repos/liveacid-software/support-ticket-images/contents/${fileName.main}-${Date.now()}.${fileName.ext}`,
             data,
             {
                 headers: { Authorization: `Bearer ${config.github.token}` },
@@ -44,7 +54,12 @@ const uploadFiles = async (files, config) => {
             console.log('error uploading file', error);
             return;
         });
-        fileUrls.push(result.download_url);
+
+        if (result.status === 201) {
+            fileUrls.push(result.data?.content?.download_url);
+        } else {
+            throw new Error('upload file response has no download_url');
+        }
     }));
     return fileUrls;
 }

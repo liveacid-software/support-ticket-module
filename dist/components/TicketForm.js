@@ -61,9 +61,9 @@ const TicketForm = _ref => {
   };
 
   const validateFile = file => {
-    let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif\.svg|\.log|\.docx|\.xlsx|\.pptx|\.txt|\.pdf|\.zip|\.gz|\.tgz|\.mp4|\.mov|\.webm)$/i;
+    let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.svg|\.log|\.docx|\.xlsx|\.pptx|\.txt|\.pdf|\.zip|\.gz|\.tgz|\.mp4|\.mov|\.webm)$/i;
 
-    if (!allowedExtensions.exec(file.webkitRelativePath)) {
+    if (!allowedExtensions.exec(file.name)) {
       console.log('Invalid file type');
       return false;
     }

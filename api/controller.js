@@ -70,7 +70,7 @@ const createTicket = async (req, res) => {
         const ticket = await ticketBuilder.saveTicket(user, req.body);
         let files = [];
 
-        const transporter = getEmailTransport(config)
+        const transporter = getEmailTransport(config);
 
         await sendEuEmail(transporter, user.email, ticket._id);
 
@@ -82,7 +82,7 @@ const createTicket = async (req, res) => {
 
         await createIssue(ticket, files, config);
 
-        res.json({ success: true });
+        res.json({ success: true, files: ticket?.files, filesResult: files });
 
     } catch (error) {
         console.log(error);

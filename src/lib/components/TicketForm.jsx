@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 const TicketForm = ({ onSubmit, error }) => {
 	const hiddenFileInput = useRef(null);
 	const [errorMessage, setErrorMessage] = React.useState('');
-	
+
 
 	const handleClick = e => {
 		hiddenFileInput.current.click();
@@ -58,28 +58,34 @@ const TicketForm = ({ onSubmit, error }) => {
 		reader.onerror = error => reject(error);
 	});
 
-	 
-const SupportTicketSchema = Yup.object().shape({
-	subject: Yup.string()
-	  .min(2, 'Too Short!')
-	  .max(50, 'Too Long!')
-	  .required('Required'),
-	body: Yup.string()
-	  .required('Required'),
-	priority: Yup.string()
-	.required('Required'),
-  });
+
+	const SupportTicketSchema = Yup.object().shape({
+		subject: Yup.string()
+			.min(2, 'Too Short!')
+			.max(50, 'Too Long!')
+			.required('Required'),
+		body: Yup.string()
+			.required('Required'),
+		priority: Yup.string()
+			.required('Required'),
+	});
 
 	return (
-		<Formik initialValues={{ subject: '', body: '', priority:'', files: [] }} onSubmit={onSubmit} validationSchema={SupportTicketSchema}>
-			{({ values, setFieldValue }) => (
+		<Formik initialValues={{ subject: '', body: '', priority: '', files: [] }} onSubmit={onSubmit} validationSchema={SupportTicketSchema}>
+			{({ values, setFieldValue, errors, touched }) => (
 				<Form>
 					{/*  SUBJECT AND DESCRIPTION  */}
 					<div className='form-group'>
 						<Field type='text' name='subject' placeholder='Subject' className='form-control input-field' />
+						{errors.subject && touched.subject ? (
+							<div>{errors.subject}</div>
+						) : null}
 					</div>
 					<div className='form-group'>
 						<Field as='textarea' name='body' placeholder='Describe issue' className='form-control input-field' />
+						{errors.body && touched.body ? (
+							<div>{errors.body}</div>
+						) : null}
 					</div>
 					{/*  FILE SELECT  */}
 					<Field name='files' type='hidden' />
@@ -128,6 +134,9 @@ const SupportTicketSchema = Yup.object().shape({
 							<option value='high'>High</option>
 							<option value='medium'>Medium</option>
 							<option value='low'>Low</option>
+							{errors.priority && touched.priority ? (
+							<div>{errors.priority}</div>
+						) : null}
 						</Field>
 					</div>
 					{/*  SUBMIT  */}

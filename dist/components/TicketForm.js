@@ -113,14 +113,22 @@ const TicketForm = _ref => {
       name: "subject",
       placeholder: "Subject",
       className: "form-control input-field"
-    }), touched.subject && errors.subject && /*#__PURE__*/_react.default.createElement("div", null, errors.subject)), /*#__PURE__*/_react.default.createElement("div", {
+    }), touched.subject && errors.subject && /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        color: 'red'
+      }
+    }, "Subject is required")), /*#__PURE__*/_react.default.createElement("div", {
       className: "form-group"
     }, /*#__PURE__*/_react.default.createElement(_formik.Field, {
       as: "textarea",
       name: "body",
       placeholder: "Describe issue",
       className: "form-control input-field"
-    }), touched.body && errors.body && /*#__PURE__*/_react.default.createElement("div", null, errors.body)), /*#__PURE__*/_react.default.createElement(_formik.Field, {
+    }), touched.body && errors.body && /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        color: 'red'
+      }
+    }, "Description is required")), /*#__PURE__*/_react.default.createElement(_formik.Field, {
       name: "files",
       type: "hidden"
     }), /*#__PURE__*/_react.default.createElement("div", {
@@ -191,7 +199,11 @@ const TicketForm = _ref => {
       value: "medium"
     }, "Medium"), /*#__PURE__*/_react.default.createElement("option", {
       value: "low"
-    }, "Low")), touched.priority && errors.priority && /*#__PURE__*/_react.default.createElement("div", null, errors.priority)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    }, "Low")), touched.priority && errors.priority && /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        color: 'red'
+      }
+    }, "Priority is required")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
       type: "submit",
       className: "btn btn-lg btn-inreach btn-block btn-bordred btn-flat sign-up-btn sign-in-btn"
     }, "Submit"), error && /*#__PURE__*/_react.default.createElement("div", {

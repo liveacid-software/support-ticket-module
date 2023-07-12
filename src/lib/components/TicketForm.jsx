@@ -77,11 +77,11 @@ const TicketForm = ({ onSubmit, error }) => {
 					{/*  SUBJECT AND DESCRIPTION  */}
 					<div className='form-group'>
 						<Field type='text' name='subject' placeholder='Subject' className='form-control input-field' />
-						{touched.subject && errors.subject && <div>{errors.subject}</div>}
+						{touched.subject && errors.subject && <div style={{ color: 'red' }}>Subject is required</div>}
 					</div>
 					<div className='form-group'>
 						<Field as='textarea' name='body' placeholder='Describe issue' className='form-control input-field' />
-						{touched.body && errors.body && <div>{errors.body}</div>}
+						{touched.body && errors.body && <div style={{ color: 'red' }}>Description is required</div>}
 					</div>
 					{/*  FILE SELECT  */}
 					<Field name='files' type='hidden' />
@@ -131,7 +131,7 @@ const TicketForm = ({ onSubmit, error }) => {
 							<option value='medium'>Medium</option>
 							<option value='low'>Low</option>
 						</Field>
-						{touched.priority && errors.priority && <div>{errors.priority}</div>}
+						{touched.priority && errors.priority && <div style={{ color: 'red' }}>Priority is required</div>}
 					</div>
 					{/*  SUBMIT  */}
 					<Button

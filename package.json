@@ -2,7 +2,7 @@
   "name": "support-ticket-module",
   "description": "Module for support ticket submital including react components and routes",
   "author": "LiveACID Software",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "private": false,
   "main": "dist/index.js",
   "exports": {
@@ -21,7 +21,9 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.1.10",
+    "bootstrap": "^5.3.0",
     "formik": "^2.2.9",
+    "react-bootstrap": "^2.8.0",
     "web-vitals": "^1.1.2"
   },
   "peerDependencies": {

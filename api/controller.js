@@ -3,6 +3,7 @@ const { getEmailTransport } = require('./email')
 const { createIssue, uploadFiles } = require('./github')
 const ticketBuilder = require('./ticket')
 
+
 const sendEuEmail = async function (transporter, to, ticketId) {
 
     try {
@@ -57,8 +58,10 @@ const sendAdminEmail = async function (transporter, from, ticket) {
     }
 }
 
+
 const createTicket = async (req, res) => {
     const user = req.user; // IF no user return error
+    if(!user) return res.status(401)
     // create mongo support record
     // sned support ticket to gihub API
     // email support ticket to users email if email exists
@@ -76,8 +79,8 @@ const createTicket = async (req, res) => {
 
         await sendAdminEmail(transporter, user.email, ticket);
 
-        if (ticket.files && ticket.files.length > 0) {
-            files = await uploadFiles(ticket.files, config);
+        if (req.body.files && req.body.files.length > 0) {
+            files = await uploadFiles(req.body.files, config);
         }
 
         await createIssue(ticket, files, config);

@@ -1,8 +1,9 @@
 import { Field, Form, Formik } from 'formik';
-import React from 'react';
+import React, { useRef } from 'react';
+import { Button } from 'react-bootstrap';
 
 const TicketForm = ({ onSubmit, error }) => {
-	const hiddenFileInput = React.useRef(null);
+	const hiddenFileInput = useRef(null);
 	const [errorMessage, setErrorMessage] = React.useState('');
 
 	const handleClick = e => {
@@ -70,13 +71,13 @@ const TicketForm = ({ onSubmit, error }) => {
 					<Field name='files' type='hidden' />
 					<div className='form-group' style={{ display: 'flex', flexWrap: 'wrap' }}>
 						<div style={{ width: 'auto', marginRight: '8px' }}>
-							<input 
+							<input
 								hidden
 								id='files'
 								ref={hiddenFileInput}
 								name='files'
 								type='file'
-								onChange={async (e) => { addFile(e, values, setFieldValue); }} 
+								onChange={async (e) => { addFile(e, values, setFieldValue); }}
 							/>
 							<button type='button' className='form-control' onClick={handleClick}>
 								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -116,12 +117,12 @@ const TicketForm = ({ onSubmit, error }) => {
 						</Field>
 					</div>
 					{/*  SUBMIT  */}
-					<button
+					<Button
 						type='submit'
 						className='btn btn-lg btn-inreach btn-block btn-bordred btn-flat sign-up-btn sign-in-btn'
 					>
 						Submit
-					</button>
+					</Button>
 					{error &&
 						<div className='alert alert-danger'>
 							Sorry, something went wrong. Please fill out all fields and try again.

@@ -9,6 +9,8 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _reactBootstrap = require("react-bootstrap");
+
 var _TicketForm = _interopRequireDefault(require("./TicketForm"));
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -29,6 +31,9 @@ class SupportTicket extends _react.Component {
 
     _defineProperty(this, "onSubmit", async data => {
       console.log("SUPPORT TICKET DATA: ", data);
+      this.setState(_objectSpread(_objectSpread({}, this.state.api), {}, {
+        loading: true
+      }));
 
       try {
         const {
@@ -42,7 +47,8 @@ class SupportTicket extends _react.Component {
           console.log("Success!");
           this.setState({
             error: false,
-            submitted: true
+            submitted: true,
+            loading: false
           });
         } else this.setState({
           error: true
@@ -50,7 +56,8 @@ class SupportTicket extends _react.Component {
       } catch (err) {
         console.log("error: ", err);
         this.setState({
-          error: true
+          error: true,
+          loading: false
         });
       }
     });
@@ -59,6 +66,7 @@ class SupportTicket extends _react.Component {
       error: false,
       message: null,
       submitted: false,
+      loading: false,
       api: props.apiPath ? props.apiPath : '/api/supportticket/submit'
     }; // console.log("API  ENDPOINT PROPS: ", props);
   }
@@ -68,7 +76,8 @@ class SupportTicket extends _react.Component {
   render() {
     const {
       error,
-      submitted
+      submitted,
+      loading
     } = this.state;
     return /*#__PURE__*/_react.default.createElement("div", {
       className: "card"
@@ -78,10 +87,15 @@ class SupportTicket extends _react.Component {
       className: "login-box-msg"
     }, "Have an Issue? Submit a support ticket to ", /*#__PURE__*/_react.default.createElement("a", {
       href: "https://liveacid.com"
-    }, "LiveACID Software")), !submitted ? /*#__PURE__*/_react.default.createElement(_TicketForm.default, {
+    }, "LiveACID Software")), loading && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
+      animation: "border",
+      role: "status"
+    }, /*#__PURE__*/_react.default.createElement("span", {
+      className: "visually-hidden"
+    }, "Loading...")), !loading && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, !submitted && /*#__PURE__*/_react.default.createElement(_TicketForm.default, {
       onSubmit: this.onSubmit,
       error: error
-    }) : /*#__PURE__*/_react.default.createElement("p", null, "Submitted Thanks!")));
+    }), submitted && /*#__PURE__*/_react.default.createElement("p", null, "Submitted Thanks!"))));
   }
 
 }

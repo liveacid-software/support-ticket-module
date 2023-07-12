@@ -1,10 +1,12 @@
 import { Field, Form, Formik } from 'formik';
 import React, { useRef } from 'react';
 import { Button } from 'react-bootstrap';
+import * as Yup from 'yup';
 
 const TicketForm = ({ onSubmit, error }) => {
 	const hiddenFileInput = useRef(null);
 	const [errorMessage, setErrorMessage] = React.useState('');
+	
 
 	const handleClick = e => {
 		hiddenFileInput.current.click();
@@ -56,8 +58,20 @@ const TicketForm = ({ onSubmit, error }) => {
 		reader.onerror = error => reject(error);
 	});
 
+	 
+const SupportTicketSchema = Yup.object().shape({
+	subject: Yup.string()
+	  .min(2, 'Too Short!')
+	  .max(50, 'Too Long!')
+	  .required('Required'),
+	body: Yup.string()
+	  .required('Required'),
+	priority: Yup.string()
+	.required('Required'),
+  });
+
 	return (
-		<Formik initialValues={{ subject: '', body: '', files: [] }} onSubmit={onSubmit}>
+		<Formik initialValues={{ subject: '', body: '', priority:'', files: [] }} onSubmit={onSubmit} validationSchema={SupportTicketSchema}>
 			{({ values, setFieldValue }) => (
 				<Form>
 					{/*  SUBJECT AND DESCRIPTION  */}

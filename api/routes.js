@@ -7,6 +7,7 @@
 
 const Router = require('express');
 const router = Router();
+const multer = require('multer');
 
 const supportTicketController  = require('./controller');
 const { SupportTicket } = require('../mongo'); // if config mongo use this ELSE import the postgres option

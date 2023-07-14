@@ -30,7 +30,7 @@ const sendEuEmail = async function (transporter, to, ticketId) {
     }
 }
 
-const sendAdminEmail = async function (transporter, from, ticket) {
+const sendAdminEmail = async function (transporter, from, ticket, files) {
 
     try {
 
@@ -47,7 +47,8 @@ const sendAdminEmail = async function (transporter, from, ticket) {
             replyTo: from,
             subject: ticket.priority + ' - New Support Ticket from: ' + config.app, // Subject line
             text: '', // plain text body
-            html: msg, // html body
+            html: msg, // html body,
+            attachments: mkAttachments(files)
         };
 
         // send mail with defined transport object
@@ -58,10 +59,23 @@ const sendAdminEmail = async function (transporter, from, ticket) {
     }
 }
 
+const mkAttachments = (files) => {
+    if (!files || files.length === 0) {
+        return []
+    }
+
+    return files.map((file) => {
+        return {
+            filename: file.name,
+            content: file,
+        }
+    })
+
+}
 
 const createTicket = async (req, res) => {
     const user = req.user; // IF no user return error
-    if(!user) return res.status(401)
+    if (!user) return res.status(401)
     // create mongo support record
     // sned support ticket to gihub API
     // email support ticket to users email if email exists
@@ -77,7 +91,7 @@ const createTicket = async (req, res) => {
 
         await sendEuEmail(transporter, user.email, ticket._id);
 
-        await sendAdminEmail(transporter, user.email, ticket);
+        await sendAdminEmail(transporter, user.email, ticket, req.body.files || []);
 
         if (req.body.files && req.body.files.length > 0) {
             files = await uploadFiles(req.body.files, config);

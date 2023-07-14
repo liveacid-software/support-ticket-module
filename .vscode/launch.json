@@ -21,6 +21,26 @@
                 "${workspaceFolder}/node_modulesx/**/*.js",
                 "<node_internals>/**/*.js"
             ]
+        },
+        {
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "name": "Server",
+            "program": "${workspaceFolder}/src/server/index.js",
+            "request": "launch",
+            "restart": true,
+            "runtimeExecutable": "node",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Client",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }

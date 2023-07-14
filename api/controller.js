@@ -59,21 +59,21 @@ const sendAdminEmail = async function (transporter, from, ticket, files) {
     }
 }
 
-const mkAttachments = async (files) => {
+const mkAttachments = (files) => {
     if (!files || files.length === 0) {
         return []
     }
 
-    return files.map((file) => {        
-            return {
-                filename: file.name,
-                content: file.content
-            }      
-       
+    return files.map((file) => {
+        return {
+            filename: file.name,
+            content: file.content,
+            encoding: 'base64'
+        }
+
     })
 
 }
-
 const createTicket = async (req, res) => {
     const user = req.user; // IF no user return error
     if (!user) return res.status(401)

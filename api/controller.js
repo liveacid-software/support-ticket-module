@@ -35,11 +35,12 @@ const sendAdminEmail = async function (transporter, from, ticket, files) {
     try {
 
         let msg = "<h1>" + ticket.priority + " - New LiveACID WorkFlow Support Ticket from: " + config.app + "</h1><br/><br/>";
-        msg += "<p>User Email: </p>" + from + "<br/>";
-        msg += "<p>Ticket ID: </p>" + ticket._id + "<br/>";
-        msg += "<p>Subject:</p>" + ticket.subject + "<br/>";
-        msg += "<p>Priority:</p>" + ticket.priority + "<br/>";
-        msg += "<p>Body: </p>" + ticket.body;
+        msg += `<p>User Email: ${from} </p><br/>`;
+        msg += `<p>Ticket ID: ${ticket._id}</p><br/>`
+        msg += `<p>Subject: ${ticket.subject}</p><br/>`;
+        msg += `<p>Priority: ${ticket.priority}</p><br/>`;
+        msg += `<p>Body: <br/>  ${ticket.body} </p>`;
+        msg += files && files.length ? `<p>Attachements: </p> <br>`: ''
 
         const mailOptions = {
             from: '"LiveACID WorkFlow" <workflow@liveacid.com>', // sender address

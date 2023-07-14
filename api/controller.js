@@ -48,7 +48,7 @@ const sendAdminEmail = async function (transporter, from, ticket, files) {
             subject: ticket.priority + ' - New Support Ticket from: ' + config.app, // Subject line
             text: '', // plain text body
             html: msg, // html body,
-            attachments: mkAttachments(files)
+            attachments: await mkAttachments(files)
         };
 
         // send mail with defined transport object
@@ -59,19 +59,39 @@ const sendAdminEmail = async function (transporter, from, ticket, files) {
     }
 }
 
-const mkAttachments = (files) => {
+const mkAttachments = async (files) => {
     if (!files || files.length === 0) {
         return []
     }
 
     return files.map((file) => {
-        return {
-            filename: file.name,
-            content: file,
-        }
+        return readFileContent(file).then((fileContent)=>{
+            return {
+                filename: file.name,
+                content: fileContent
+            }
+        })
+       
     })
 
 }
+
+const readFileContent = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+  
+      reader.onload = (event) => {
+        const fileContent = event.target.result;
+        resolve(fileContent);
+      };
+  
+      reader.onerror = (event) => {
+        reject(event.target.error);
+      };
+  
+      reader.readAsDataURL(file);
+    });
+  };
 
 const createTicket = async (req, res) => {
     const user = req.user; // IF no user return error

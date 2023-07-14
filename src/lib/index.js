@@ -1,5 +1,3 @@
 import SupportTicket from './components/SupportTicket';
 
-export { 
-        SupportTicket
-}; 
+export { SupportTicket }; 

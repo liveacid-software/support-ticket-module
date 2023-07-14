@@ -24,9 +24,14 @@ class SupportTicket extends Component {
 		console.log("SUPPORT TICKET DATA: ", data);
 		this.setState({ ...this.state.api, loading: true })
 		try {
-			const {
-				data: { userInfo, success },
-			} = await axios.post(this.state.api, { ...data });
+
+			const formData = new FormData();
+			formData.append('subject', data.subject);
+			formData.append('body', data.body);
+			formData.append('priority', data.priority);
+			formData.append('files', ticket.description);
+		
+			const { data: { userInfo, success }} = await axios.post(this.state.api, formData);
 			if (success) {
 				console.log("Success!");
 				this.setState({ error: false, submitted: true, loading: false });

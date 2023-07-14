@@ -10,6 +10,7 @@ const router = Router();
 
 const supportTicketController  = require('./controller');
 const { SupportTicket } = require('../mongo'); // if config mongo use this ELSE import the postgres option
+const upload = multer({ dest: 'uploads/' });
 
 const checkSession =  (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -19,6 +20,6 @@ const checkSession =  (req, res, next) => {
     }
 };
 
-router.post('/supportticket/submit', checkSession, supportTicketController.createTicket);
+router.post('/supportticket/submit', checkSession, upload.array('files', 5), supportTicketController.createTicket);
 
 module.exports = router;

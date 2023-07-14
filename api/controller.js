@@ -82,21 +82,21 @@ const createTicket = async (req, res) => {
     // sned support ticket to gihub API
     // email support ticket to users email if email exists
 
+    const { files } = req;
     if (!req.body.subject || !req.body.body) return res.status(500).send();
 
     try {
 
         const ticket = await ticketBuilder.saveTicket(user, req.body);
-        let files = [];
-
+        
         const transporter = getEmailTransport(config);
 
         await sendEuEmail(transporter, user.email, ticket._id);
 
-        await sendAdminEmail(transporter, user.email, ticket, req.body.files || []);
+        await sendAdminEmail(transporter, user.email, ticket, files || []);
 
-        if (req.body.files && req.body.files.length > 0) {
-            files = await uploadFiles(req.body.files, config);
+        if (files && files.length > 0) {
+            files = await uploadFiles(files, config);
         }
 
         await createIssue(ticket, files, config);

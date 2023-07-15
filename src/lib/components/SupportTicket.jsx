@@ -29,7 +29,7 @@ class SupportTicket extends Component {
 			formData.append('subject', data.subject);
 			formData.append('body', data.body);
 			formData.append('priority', data.priority);
-			formData.append('files', ticket.description);
+			formData.append('files', data.files);
 		
 			const { data: { userInfo, success }} = await axios.post(this.state.api, formData);
 			if (success) {

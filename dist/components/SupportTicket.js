@@ -40,7 +40,7 @@ class SupportTicket extends _react.Component {
         formData.append('subject', data.subject);
         formData.append('body', data.body);
         formData.append('priority', data.priority);
-        formData.append('files', ticket.description);
+        formData.append('files', data.files);
         const {
           data: {
             userInfo,

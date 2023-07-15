@@ -83,6 +83,7 @@ const createTicket = async (req, res) => {
     // email support ticket to users email if email exists
 
     const files = req.body.files;
+    console.log('req files: %O', req.files);
     let fileUrls = []
     if (!req.body.subject || !req.body.body) return res.status(500).send();
 

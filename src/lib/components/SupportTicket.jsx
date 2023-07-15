@@ -31,7 +31,11 @@ class SupportTicket extends Component {
 			formData.append('priority', data.priority);
 			formData.append('files', data.files);
 		
-			const { data: { userInfo, success }} = await axios.post(this.state.api, formData);
+			const { data: { userInfo, success }} = await axios.post(this.state.api, formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				  }
+				});
 			if (success) {
 				console.log("Success!");
 				this.setState({ error: false, submitted: true, loading: false });

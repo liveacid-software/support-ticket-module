@@ -46,7 +46,11 @@ class SupportTicket extends _react.Component {
             userInfo,
             success
           }
-        } = await _axios.default.post(this.state.api, formData);
+        } = await _axios.default.post(this.state.api, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
 
         if (success) {
           console.log("Success!");

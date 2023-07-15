@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-const { Octokit } = require('@octokit/rest');
+const { Octokit } = require('@octokit');
 
 const createIssue = (ticket, files, config) => {
     const octokit = new Octokit({
@@ -9,7 +9,7 @@ const createIssue = (ticket, files, config) => {
     const body = `Submitter Email: ${ticket.submittedBy?.email}\n Ticket Id: ${ticket._id}\n Priority:${ticket.priority}\n Body:${ticket.body} ${fileEmbeds}`;
 
 
-    return octokit.issues.create({
+    return octokit.rest.issues.create({
         owner: 'liveacid-software',
         repo: config.github.repo,
         title: ticket.subject,
@@ -22,7 +22,7 @@ const createIssue = (ticket, files, config) => {
         // Upload file as a comment on the GitHub issue
         const fileComment = files.map((file) => {
 
-            return octokit.issues.createComment({
+            return octokit.rest.issues.createComment({
                 owner: 'liveacid-software',
                 repo: config.github.repo,
                 issue_number: issueNumber,

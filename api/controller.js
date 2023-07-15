@@ -96,7 +96,7 @@ const createTicket = async (req, res) => {
 
         await sendAdminEmail(transporter, user.email, ticket, files || []);
 
-        if (file && file.length > 0) {
+        if (files && files.length > 0) {
             await uploadFiles(files, config);
         }
 

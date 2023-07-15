@@ -36,12 +36,17 @@ class SupportTicket extends _react.Component {
       }));
 
       try {
+        const formData = new FormData();
+        formData.append('subject', data.subject);
+        formData.append('body', data.body);
+        formData.append('priority', data.priority);
+        formData.append('files', ticket.description);
         const {
           data: {
             userInfo,
             success
           }
-        } = await _axios.default.post(this.state.api, _objectSpread({}, data));
+        } = await _axios.default.post(this.state.api, formData);
 
         if (success) {
           console.log("Success!");

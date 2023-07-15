@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-const { Octokit } = require('@octokit');
+const { Octokit } = require('octokit');
 
 const createIssue = (ticket, files, config) => {
     const octokit = new Octokit({

@@ -18,8 +18,6 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
-    "@octokit/core": "^5.0.0",
-    "@octokit/request": "^8.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.1.10",

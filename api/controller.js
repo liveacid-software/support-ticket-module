@@ -82,8 +82,9 @@ const createTicket = async (req, res) => {
     // sned support ticket to gihub API
     // email support ticket to users email if email exists
 
-    const { files } = req;
+    const { file, files } = req;
     console.log('files: %O', files)
+    console.log('file: %O', file)
     console.log('req.body: %O', req.body)
     if (!req.body.subject || !req.body.body) return res.status(500).send();
 
@@ -97,13 +98,13 @@ const createTicket = async (req, res) => {
 
         await sendAdminEmail(transporter, user.email, ticket, files || []);
 
-        if (files && files.length > 0) {
-            files = await uploadFiles(files, config);
+        if (file && file.length > 0) {
+            await uploadFiles(files, config);
         }
 
         await createIssue(ticket, files, config);
 
-        res.json({ success: true, files: ticket?.files, filesResult: files });
+        res.json({ success: true });
 
     } catch (error) {
         console.log(error);

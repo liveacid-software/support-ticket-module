@@ -41,10 +41,7 @@ class SupportTicket extends _react.Component {
         formData.append('subject', data.subject);
         formData.append('body', data.body);
         formData.append('priority', data.priority);
-        formData.append('files', data.files);
-        data.files.forEach((file, index) => {
-          formData.append("file".concat(index + 1), file);
-        });
+        formData.append('attachment', data.files[0]);
         const {
           data: {
             userInfo,

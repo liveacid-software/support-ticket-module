@@ -29,10 +29,8 @@ class SupportTicket extends Component {
 			formData.append('subject', data.subject);
 			formData.append('body', data.body);
 			formData.append('priority', data.priority);
-			formData.append('files', data.files);
-			data.files.forEach((file, index) => {
-				formData.append(`file${index + 1}`, file);
-			});
+			formData.append('attachment', data.files[0]);
+			
 
 			const { data: { userInfo, success } } = await axios.post(this.state.api, formData, {
 				headers: {

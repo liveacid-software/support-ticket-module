@@ -31,6 +31,6 @@ const checkSession = (req, res, next) => {
     }
 };
 
-router.post('/supportticket/submit', checkSession, upload.array('files', 5), supportTicketController.createTicket);
+router.post('/supportticket/submit', checkSession, upload.array('attachment', 5), supportTicketController.createTicket);
 
 module.exports = router;

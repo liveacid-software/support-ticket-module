@@ -9,11 +9,21 @@ const Router = require('express');
 const router = Router();
 const multer = require('multer');
 
-const supportTicketController  = require('./controller');
+const supportTicketController = require('./controller');
 const { SupportTicket } = require('../mongo'); // if config mongo use this ELSE import the postgres option
-const upload = multer({ dest: 'uploads/' });
+const storage = multer.diskStorage({
+    destination: 'uploads/',
+    limits: {
+        fileSize: 10 * 1024 * 1024, // 10MB file size limit (adjust as needed)
+    },
+});
 
-const checkSession =  (req, res, next) => {
+
+const upload = multer({
+    storage,
+});
+
+const checkSession = (req, res, next) => {
     if (!req.isAuthenticated()) {
         return res.status(401).send("Error: Not Authenticated");
     } else {

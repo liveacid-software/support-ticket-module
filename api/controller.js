@@ -40,7 +40,7 @@ const sendAdminEmail = async function (transporter, from, ticket, files) {
         msg += `<p>Subject: ${ticket.subject}</p><br/>`;
         msg += `<p>Priority: ${ticket.priority}</p><br/>`;
         msg += `<p>Body: <br/>  ${ticket.body} </p>`;
-        msg += files && files.length ? `<p>Attachment: </p> <br>`: ''
+        msg += files && files.length ? `<p>Attachment: </p> <br>` : ''
 
         const mailOptions = {
             from: '"LiveACID WorkFlow" <workflow@liveacid.com>', // sender address
@@ -83,13 +83,13 @@ const createTicket = async (req, res) => {
     // email support ticket to users email if email exists
 
     const files = req.body.files;
-   
+    let fileUrls = []
     if (!req.body.subject || !req.body.body) return res.status(500).send();
 
     try {
 
         const ticket = await ticketBuilder.saveTicket(user, req.body);
-        
+
         const transporter = getEmailTransport(config);
 
         await sendEuEmail(transporter, user.email, ticket._id);
@@ -97,10 +97,10 @@ const createTicket = async (req, res) => {
         await sendAdminEmail(transporter, user.email, ticket, files || []);
 
         if (files && files.length > 0) {
-            await uploadFiles(files, config);
+            fileUrls = await uploadFiles(files, config);
         }
 
-        await createIssue(ticket, files, config);
+        await createIssue(ticket, fileUrls, config);
 
         res.json({ success: true });
 

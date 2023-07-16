@@ -13,15 +13,10 @@ const TicketForm = ({ onSubmit, error, setFiles }) => {
 	};
 
 	const addFile = async (filePicker, values, setFieldValue) => {
-		console.log('***** addFile start *****')
-		console.log('***** values.filest *****', values.files)
-		console.log('***** filePicker.currentTarget.files.length *****', filePicker.currentTarget.files.length)
-
+		
 		if (!values.files || filePicker.currentTarget.files.length == 0) return;
-		console.log('***** values.files *****', values.files)
 		const files = filePicker.currentTarget.files;
-		console.log('***** files *****', files)
-
+		
 		if (files.length > 2 || (selectedFiles.length + files.length) > 2) {
 			setErrorMessage('Please select a maximum of 2 files.');
 			return;

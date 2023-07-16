@@ -1,5 +1,4 @@
 const axios = require('axios').default;
-const crypto = require('crypto');
 
 const createIssue = (ticket, files, config) => {
 
@@ -22,7 +21,7 @@ const createIssue = (ticket, files, config) => {
             headers: { Authorization: `Bearer ${config.github.token}` },
         }
     ).catch((error) => {
-        console.log('error creating github issue', error);
+        return Promise.reject(new Error(`error creating github issue: ${error.message}}`))
     });
 
 }
@@ -39,10 +38,7 @@ const splitAndTruncate = (filename) => {
 
 const uploadFile = (file, config) => {
 
-    console.log('file', file)
-    console.log('file.name', file.name)
     const fileName = splitAndTruncate(file.name);
-    console.log('fileName', fileName)
     const fileData = file.data.toString('base64');
     const data = {
         "message": 'user file: ' + fileName.main,

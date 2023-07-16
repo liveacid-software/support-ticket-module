@@ -97,7 +97,7 @@ class SupportTicket extends _react.Component {
       className: "card-body login-card-body"
     }, /*#__PURE__*/_react.default.createElement("p", {
       className: "login-box-msg"
-    }, "Local Have an Issue? Submit a support ticket to ", /*#__PURE__*/_react.default.createElement("a", {
+    }, "Have an Issue? Submit a support ticket to ", /*#__PURE__*/_react.default.createElement("a", {
       href: "https://liveacid.com"
     }, "LiveACID Software")), loading && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
       animation: "border",

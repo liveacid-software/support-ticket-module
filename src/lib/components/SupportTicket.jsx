@@ -68,7 +68,7 @@ class SupportTicket extends Component {
 		return (
 			<div className='card'>
 				<div className='card-body login-card-body'>
-					<p className='login-box-msg'>Local Have an Issue? Submit a support ticket to <a href="https://liveacid.com">LiveACID Software</a></p>
+					<p className='login-box-msg'>Have an Issue? Submit a support ticket to <a href="https://liveacid.com">LiveACID Software</a></p>
 					{loading && (
 						<Spinner animation="border" role="status">
 							<span className="visually-hidden">Loading...</span>

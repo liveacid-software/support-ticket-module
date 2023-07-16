@@ -1,6 +1,6 @@
 const config = require('../config')
 const { getEmailTransport } = require('./email')
-const { createIssue, uploadFiles } = require('./github')
+const { createIssue, uploadFile } = require('./github')
 const ticketBuilder = require('./ticket')
 
 
@@ -60,21 +60,16 @@ const sendAdminEmail = async function (transporter, from, ticket, files) {
     }
 }
 
-const mkAttachments = (files) => {
-    if (!files || files.length === 0) {
-        return []
+const mkAttachments = (file) => {
+    if (!file) {
+        return null
     }
-
-    return files.map((file) => {
-        return {
-            filename: file.name,
-            content: file.content,
-            encoding: 'base64'
-        }
-
-    })
-
+    return {
+        filename: file.name,
+        content: file.data
+    }
 }
+
 const createTicket = async (req, res) => {
     const user = req.user; // IF no user return error
     if (!user) return res.status(401)
@@ -82,32 +77,39 @@ const createTicket = async (req, res) => {
     // sned support ticket to gihub API
     // email support ticket to users email if email exists
 
-    const files = req.body.files;
-    console.log('req files: %O', req.files);
-    let fileUrls = []
-    if (!req.body.subject || !req.body.body) return res.status(500).send();
+    const files = req.files.files;
+    const { subject, body, priority } = req.body;
+    if (!subject || !body) return res.status(500).send();
 
     try {
 
-        const ticket = await ticketBuilder.saveTicket(user, req.body);
+        const ticket = await ticketBuilder.saveTicket(user, { subject, body, priority });
 
         const transporter = getEmailTransport(config);
 
         await sendEuEmail(transporter, user.email, ticket._id);
 
-        await sendAdminEmail(transporter, user.email, ticket, files || []);
+        await sendAdminEmail(transporter, user.email, ticket, files);
 
-        if (files && files.length > 0) {
-            fileUrls = await uploadFiles(files, config);
+        let fileUrls = []
+        if (files) {
+            if (Array.isArray(files)) {   // we only allow two files promise.all does not work due to the github api
+                const url1 = await uploadFile(files[0], config);
+                fileUrls.push(url1);
+                const url2 = await uploadFile(files[1], config);
+                fileUrls.push(url2);
+            } else {
+                const url = await uploadFile(files, config);
+                fileUrls.push(url);
+            }
         }
-
         await createIssue(ticket, fileUrls, config);
 
-        res.json({ success: true });
+        return res.status(201).send({ success: true });
 
     } catch (error) {
         console.log(error);
-        res.json({ error: error, success: false });
+        res.status(400).send({ error: error, success: false });
     }
 }
 

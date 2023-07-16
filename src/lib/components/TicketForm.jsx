@@ -1,63 +1,70 @@
 import { Field, Form, Formik } from 'formik';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 
-const TicketForm = ({ onSubmit, error }) => {
+const TicketForm = ({ onSubmit, error, setFiles }) => {
 	const hiddenFileInput = useRef(null);
-	const [errorMessage, setErrorMessage] = React.useState('');
-
+	const [errorMessage, setErrorMessage] = useState('');
+	const [selectedFiles, setSelectedFiles] = useState([]);
 
 	const handleClick = e => {
 		hiddenFileInput.current.click();
 	};
 
 	const addFile = async (filePicker, values, setFieldValue) => {
-		if (!values.files || !Array.isArray(values.files) || filePicker.currentTarget.files.length == 0) return;
+		console.log('***** addFile start *****')
+		console.log('***** values.filest *****', values.files)
+		console.log('***** filePicker.currentTarget.files.length *****', filePicker.currentTarget.files.length)
 
-		const oldFiles = values.files;
-		const selectedFile = filePicker.currentTarget.files[0];
-		let base64File = '';
+		if (!values.files || filePicker.currentTarget.files.length == 0) return;
+		console.log('***** values.files *****', values.files)
+		const files = filePicker.currentTarget.files;
+		console.log('***** files *****', files)
 
-		if (oldFiles.length > 4) {
-			setErrorMessage('You have attached the maximum number of files.');
+		if (files.length > 2 || (selectedFiles.length + files.length) > 2) {
+			setErrorMessage('Please select a maximum of 2 files.');
 			return;
 		} else { setErrorMessage(''); }
 
-		if (!validateFile(selectedFile)) {
+		if (!validateFile(files)) {
 			setErrorMessage('The selected file type is invalid.');
 			return;
 		} else { setErrorMessage(''); }
 
-		try {
-			base64File = await toBase64(selectedFile);
-		} catch (err) {
-			console.log('error reading file', err);
-			return;
-		}
 
-		const cleanFile = { name: selectedFile.name, content: base64File }
-		const newData = oldFiles?.concat(cleanFile);
-		setFieldValue('files', newData);
+		setSelectedFiles((prevSelectedFiles) => [
+			...prevSelectedFiles,
+			...Array.from(files),
+		]);
+
+		setFieldValue('files', files);
+		setFiles(filePicker.currentTarget.files)
+
+		console.log('***** got here *****',)
+
+
 	}
 
-	const validateFile = file => {
+	const validateFile = (files) => {
 		let allowedExtensions =
 			/(\.jpg|\.jpeg|\.png|\.gif|\.svg|\.log|\.docx|\.xlsx|\.pptx|\.txt|\.pdf|\.zip|\.gz|\.tgz|\.mp4|\.mov|\.webm)$/i;
-		if (!allowedExtensions.exec(file.name)) {
-			console.log('Invalid file type');
-			return false;
+
+		for (let i = 0; i < selectedFiles.length; i++) {
+			const file = files[i];
+			if (!allowedExtensions.exec(file.name)) {
+				setErrorMessage('Invalid File Type');
+				return false;
+			}
 		}
-		return true;
+		return true
 	}
 
-	const toBase64 = file => new Promise((resolve, reject) => {
-		const reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.onload = () => resolve(reader.result.replace('data:', '').replace(/^.+,/, ''));
-		reader.onerror = error => reject(error);
-	});
-
+	const handleRemove = (index) => {
+		setSelectedFiles((prevSelectedFiles) =>
+			prevSelectedFiles.filter((_, i) => i !== index)
+		);
+	};
 
 	const SupportTicketSchema = Yup.object().shape({
 		subject: Yup.string()
@@ -89,6 +96,7 @@ const TicketForm = ({ onSubmit, error }) => {
 						<div style={{ width: 'auto', marginRight: '8px' }}>
 							<input
 								hidden
+								multiple
 								id='files'
 								ref={hiddenFileInput}
 								name='files'
@@ -102,25 +110,16 @@ const TicketForm = ({ onSubmit, error }) => {
 							</button>
 						</div>
 						{/*  FILE PREVIEWS  */}
-						{values.files && Array.isArray(values.files) && values.files.map(file =>
-							<button
-								type='button'
-								className='form-control'
-								style={{ width: 'auto', marginRight: '8px', marginBottom: '8px' }}
-								id={'file' + file.name}
-								onClick={e => {
-									const newFiles = values.files;
-									const index = newFiles.findIndex(f => f.name === file.name);
-									if (index !== -1) {
-										newFiles.splice(index, 1);
-										setFieldValue('files', newFiles);
-										setErrorMessage('');
-									}
-								}}
-							>
-								✕ &nbsp; {file.name}
-							</button>
-						)}
+						{selectedFiles.map((file, index) => (
+							<div key={index}>
+								<img
+									src={URL.createObjectURL(file)}
+									alt={`Preview ${index}`}
+									style={{ width: '200px', height: '200px' }}
+								/>
+								<Button variant='danger' onClick={() => handleRemove(index)}>Remove</Button>
+							</div>
+						))}
 					</div>
 					{/*  PRIORITY SELECT  */}
 					<div className='form-group'>

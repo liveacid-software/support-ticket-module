@@ -12,40 +12,51 @@ class SupportTicket extends Component {
 			message: null,
 			submitted: false,
 			loading: false,
+			files: [],
 			api: props.apiPath ? props.apiPath : '/api/supportticket/submit'
 		};
-		// console.log("API  ENDPOINT PROPS: ", props);
+
 	}
 
 	componentDidMount() {
 	}
 
+	setFiles = (files) => {
+		this.setState({ ...this.state, files });
+	}
 	onSubmit = async (data) => {
-		console.log("SUPPORT TICKET DATA: ", data);
 		this.setState({ ...this.state.api, loading: true })
-		try {
-			console.log("Submitting data", data);
-			const formData = new FormData();
-			formData.append('subject', data.subject);
-			formData.append('body', data.body);
-			formData.append('priority', data.priority);
-			formData.append('attachment', data.files[0]);
-			
 
-			const { data: { userInfo, success } } = await axios.post(this.state.api, formData, {
+		const formData = new FormData();
+		formData.append('subject', data.subject);
+		formData.append('body', data.body);
+		formData.append('priority', data.priority);
+		for (let i = 0; i < this.state.files.length; i++) {
+			formData.append('files', this.state.files[i]);
+		}
+	
+		return axios
+			.post(this.state.api, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
-				}
-			});
-			if (success) {
-				console.log("Success!");
-				this.setState({ error: false, submitted: true, loading: false });
-			} else this.setState({ error: true });
-		} catch (err) {
-			console.log("error: ", err);
-			this.setState({ error: true, loading: false });
-		}
+				},
+				withCredentials: true,
+			})
+
+			.then((results) => {
+				if (results.data.success) {
+					console.log("Success!");
+					this.setState({ error: false, submitted: true, loading: false });
+				} else this.setState({ error: true });
+			}).catch((err) => {
+				console.log("error: ", err);
+				this.setState({ error: true, loading: false });
+			})
+
+
+
 	};
+
 
 	render() {
 		const {
@@ -57,7 +68,7 @@ class SupportTicket extends Component {
 		return (
 			<div className='card'>
 				<div className='card-body login-card-body'>
-					<p className='login-box-msg'>Have an Issue? Submit a support ticket to <a href="https://liveacid.com">LiveACID Software</a></p>
+					<p className='login-box-msg'>Local Have an Issue? Submit a support ticket to <a href="https://liveacid.com">LiveACID Software</a></p>
 					{loading && (
 						<Spinner animation="border" role="status">
 							<span className="visually-hidden">Loading...</span>
@@ -67,7 +78,7 @@ class SupportTicket extends Component {
 					{!loading && (
 						<>
 							{!submitted && (
-								<TicketForm onSubmit={this.onSubmit} error={error} />
+								<TicketForm onSubmit={this.onSubmit} error={error} setFiles={this.setFiles} />
 							)}
 							{submitted && (
 								<p>Submitted Thanks!</p>

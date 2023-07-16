@@ -29,31 +29,32 @@ class SupportTicket extends _react.Component {
   constructor(props) {
     super(props);
 
+    _defineProperty(this, "setFiles", files => {
+      this.setState(_objectSpread(_objectSpread({}, this.state), {}, {
+        files
+      }));
+    });
+
     _defineProperty(this, "onSubmit", async data => {
-      console.log("SUPPORT TICKET DATA: ", data);
       this.setState(_objectSpread(_objectSpread({}, this.state.api), {}, {
         loading: true
       }));
+      const formData = new FormData();
+      formData.append('subject', data.subject);
+      formData.append('body', data.body);
+      formData.append('priority', data.priority);
 
-      try {
-        console.log("Submitting data", data);
-        const formData = new FormData();
-        formData.append('subject', data.subject);
-        formData.append('body', data.body);
-        formData.append('priority', data.priority);
-        formData.append('attachment', data.files[0]);
-        const {
-          data: {
-            userInfo,
-            success
-          }
-        } = await _axios.default.post(this.state.api, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
+      for (let i = 0; i < this.state.files.length; i++) {
+        formData.append('files', this.state.files[i]);
+      }
 
-        if (success) {
+      return _axios.default.post(this.state.api, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        withCredentials: true
+      }).then(results => {
+        if (results.data.success) {
           console.log("Success!");
           this.setState({
             error: false,
@@ -63,13 +64,13 @@ class SupportTicket extends _react.Component {
         } else this.setState({
           error: true
         });
-      } catch (err) {
+      }).catch(err => {
         console.log("error: ", err);
         this.setState({
           error: true,
           loading: false
         });
-      }
+      });
     });
 
     this.state = {
@@ -77,8 +78,9 @@ class SupportTicket extends _react.Component {
       message: null,
       submitted: false,
       loading: false,
+      files: [],
       api: props.apiPath ? props.apiPath : '/api/supportticket/submit'
-    }; // console.log("API  ENDPOINT PROPS: ", props);
+    };
   }
 
   componentDidMount() {}
@@ -95,7 +97,7 @@ class SupportTicket extends _react.Component {
       className: "card-body login-card-body"
     }, /*#__PURE__*/_react.default.createElement("p", {
       className: "login-box-msg"
-    }, "Have an Issue? Submit a support ticket to ", /*#__PURE__*/_react.default.createElement("a", {
+    }, "Local Have an Issue? Submit a support ticket to ", /*#__PURE__*/_react.default.createElement("a", {
       href: "https://liveacid.com"
     }, "LiveACID Software")), loading && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
       animation: "border",
@@ -104,7 +106,8 @@ class SupportTicket extends _react.Component {
       className: "visually-hidden"
     }, "Loading...")), !loading && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, !submitted && /*#__PURE__*/_react.default.createElement(_TicketForm.default, {
       onSubmit: this.onSubmit,
-      error: error
+      error: error,
+      setFiles: this.setFiles
     }), submitted && /*#__PURE__*/_react.default.createElement("p", null, "Submitted Thanks!"))));
   }
 

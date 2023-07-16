@@ -1,13 +1,13 @@
 
 const { SupportTicket } = require('../../mongo');
 
-const saveTicket = async (user, body) => {
+const saveTicket = async (user, { subject, body, priority }) => {
 
     const ticket = new SupportTicket({
         submittedBy: user,
-        subject: body.subject,
-        body: body.body,
-        priority: body.priority,
+        subject,
+        body,
+        priority,
     })
     await ticket.save()
     return ticket

@@ -77,7 +77,7 @@ const createTicket = async (req, res) => {
     // sned support ticket to gihub API
     // email support ticket to users email if email exists
 
-    const files = req.files.files;
+    const files = req.files ? req.files.files : null
     const { subject, body, priority } = req.body;
     if (!subject || !body) return res.status(500).send();
 

@@ -65,11 +65,11 @@ const TicketForm = ({ onSubmit, error, setFiles }) => {
 		subject: Yup.string()
 			.min(2, 'Too Short!')
 			.max(50, 'Too Long!')
-			.required('Required'),
+			.required('Subject is required'),
 		body: Yup.string()
-			.required('Required'),
+			.required('Description is required'),
 		priority: Yup.string()
-			.required('Required'),
+			.required('Priority is required'),
 	});
 
 	return (
@@ -78,12 +78,12 @@ const TicketForm = ({ onSubmit, error, setFiles }) => {
 				<Form>
 					{/*  SUBJECT AND DESCRIPTION  */}
 					<div className='form-group'>
-						<Field type='text' name='subject' placeholder='Subject' className='form-control input-field' />
-						{touched.subject && errors.subject && <div style={{ color: 'red' }}>Subject is required</div>}
+						<Field type='text' name='subject' placeholder='Subject' max={50} className='form-control input-field' />
+						{touched.subject && errors.subject && <div style={{ color: 'red' }}>{errors.subject}</div>}
 					</div>
 					<div className='form-group'>
 						<Field as='textarea' name='body' placeholder='Describe issue' className='form-control input-field' />
-						{touched.body && errors.body && <div style={{ color: 'red' }}>Description is required</div>}
+						{touched.body && errors.body && <div style={{ color: 'red' }}>{errors.body}</div>}
 					</div>
 					{/*  FILE SELECT  */}
 					<Field name='files' type='hidden' />
@@ -125,7 +125,7 @@ const TicketForm = ({ onSubmit, error, setFiles }) => {
 							<option value='medium'>Medium</option>
 							<option value='low'>Low</option>
 						</Field>
-						{touched.priority && errors.priority && <div style={{ color: 'red' }}>Priority is required</div>}
+						{touched.priority && errors.priority && <div style={{ color: 'red' }}>{errors.priority}</div>}
 					</div>
 					{/*  SUBMIT  */}
 					<Button

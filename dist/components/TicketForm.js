@@ -141,7 +141,6 @@ const TicketForm = _ref => {
       }
     }, /*#__PURE__*/_react.default.createElement("input", {
       hidden: true,
-      multiple: true,
       id: "files",
       ref: hiddenFileInput,
       name: "files",

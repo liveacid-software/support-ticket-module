@@ -96,7 +96,6 @@ const TicketForm = ({ onSubmit, error, setFiles }) => {
 						<div style={{ width: 'auto', marginRight: '8px' }}>
 							<input
 								hidden
-								multiple
 								id='files'
 								ref={hiddenFileInput}
 								name='files'

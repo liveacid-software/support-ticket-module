@@ -66,6 +66,15 @@ const mkAttachments = (file) => {
     }
 
     if (config.email.api_key) {
+        if (Array.isArray(files)) {
+            return files.map(f => {
+                return {
+                    content: f.data,
+                    filename: f.name,
+                    disposition: 'attachment', // Set disposition as an attachment
+                }
+            })
+        }
         return [
             {
                 content: file.data,

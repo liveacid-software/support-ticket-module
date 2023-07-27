@@ -64,10 +64,22 @@ const mkAttachments = (file) => {
     if (!file) {
         return null
     }
+
+    if (config.email.api_key) {
+        return [
+            {
+                content: file.data,
+                filename: file.name,
+                disposition: 'attachment', // Set disposition as an attachment
+            },
+        ]
+    }
+
     return {
         filename: file.name,
         content: file.data
     }
+
 }
 
 const createTicket = async (req, res) => {

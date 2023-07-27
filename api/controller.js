@@ -66,8 +66,8 @@ const mkAttachments = (file) => {
     }
 
     if (config.email.api_key) {
-        if (Array.isArray(files)) {
-            return files.map(f => {
+        if (Array.isArray(file)) {
+            return file.map(f => {
                 return {
                     content: f.data,
                     filename: f.name,

@@ -84,6 +84,13 @@ const mkAttachments = (file) => {
         ]
     }
 
+    if (Array.isArray(file)) {
+        return {
+            filename: file[0].name,
+            content: file[0].data
+        }
+
+    }
     return {
         filename: file.name,
         content: file.data

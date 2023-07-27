@@ -35,8 +35,8 @@ const TicketForm = _ref => {
     if (!values.files || filePicker.currentTarget.files.length == 0) return;
     const files = filePicker.currentTarget.files;
 
-    if (files.length > 2 || selectedFiles.length + files.length > 2) {
-      setErrorMessage('Please select a maximum of 2 files.');
+    if (files.length > 1 || selectedFiles.length + files.length > 1) {
+      setErrorMessage('I am sorry but you can only upload one file at a time.');
       return;
     } else {
       setErrorMessage('');
@@ -47,6 +47,13 @@ const TicketForm = _ref => {
       return;
     } else {
       setErrorMessage('');
+    }
+
+    const maxSizeInBytes = 1048576; // 5MB (adjust as needed)
+
+    if (files[0].size > maxSizeInBytes) {
+      setErrorMessage('File size exceeds the maximum allowed limit.');
+      return;
     }
 
     setSelectedFiles(prevSelectedFiles => [...prevSelectedFiles, ...Array.from(files)]);
